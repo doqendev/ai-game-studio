@@ -30,10 +30,10 @@ describe("generation-safe StudioController scanning", () => {
     const setup = await setupController();
     const otherProject = await makeProject("Other project");
     const scanA = setup.controller.rescan();
-    await setup.controller.selectProject(otherProject);
+    const selectedOther = await setup.controller.selectProject(otherProject);
     setup.operations[0]!.resolve(namedReport(setup.report, "Stale report"));
     await scanA;
-    expect(setup.controller.snapshot().selectedProject).toMatchObject({ path: otherProject, scanState: "not-scanned", scan: null });
+    expect(setup.controller.snapshot().selectedProject).toMatchObject({ path: selectedOther.selectedProject!.path, scanState: "not-scanned", scan: null });
   });
 
   it("invalidates scan A when trust is removed", async () => {
