@@ -1,0 +1,42 @@
+name: Milestone 1 closure
+
+on:
+  push:
+    branches: [internal-creator-prototype]
+  pull_request:
+    branches: [internal-creator-prototype]
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: app/package-lock.json
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript checks
+        run: npm run check
+
+      - name: Unit and controller tests
+        run: npm test
+
+      - name: Production build
+        run: npm run build
+
+      # Portable Electron acceptance remains a local Windows command because
+      # hosted runners are not used as evidence for desktop focus behavior.

@@ -39,7 +39,10 @@ test("controlled fixture supports the complete portable read-only cockpit flow",
     await expect(page.getByText("Scanning is paused").first()).toBeVisible();
     await page.getByRole("button", { name: "Review trust" }).click();
     await page.getByTestId("trust-project-button").click();
+    await expect(page.getByRole("status")).toContainText("Scanning trusted project", { timeout: 2_000 });
     await expect(page.locator(".metric-card").filter({ hasText: "Inventory state" })).toContainText(/Inventory complete|Inventory partial/u, { timeout: 30_000 });
+    await expect(page.getByTestId("rescan-button")).toBeFocused();
+    expect(await page.evaluate(() => Boolean(document.activeElement?.isConnected))).toBe(true);
 
     expect(await page.evaluate(() => typeof (window as unknown as { require?: unknown }).require)).toBe("undefined");
     expect(await page.evaluate(() => typeof (window as unknown as { process?: unknown }).process)).toBe("undefined");

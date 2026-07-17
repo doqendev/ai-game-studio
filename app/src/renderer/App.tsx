@@ -83,7 +83,10 @@ export function App(): JSX.Element {
   const [objective, setObjective] = useState("");
   const workspaceRef = useRef<HTMLElement>(null);
   const chooseProjectButtonRef = useRef<HTMLButtonElement>(null);
+  const rescanButtonRef = useRef<HTMLButtonElement>(null);
+  const cancelScanButtonRef = useRef<HTMLButtonElement>(null);
   const trustReturnFocusRef = useRef<HTMLElement | null>(null);
+  const focusAfterTrustRef = useRef(false);
 
   useEffect(() => {
     void window.studio.getSnapshot().then((result) => {
@@ -94,6 +97,16 @@ export function App(): JSX.Element {
       setLoading(false);
     });
   }, []);
+
+  useEffect(() => {
+    const project = snapshot?.selectedProject;
+    if (!focusAfterTrustRef.current || busy || !project?.trusted || !["complete", "partial", "cancelled", "failed"].includes(project.scanState)) return;
+    const frame = requestAnimationFrame(() => {
+      rescanButtonRef.current?.focus();
+      focusAfterTrustRef.current = false;
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [busy, snapshot]);
 
   function applySnapshot(value: StudioSnapshot): void {
     setSnapshot(value);
@@ -118,12 +131,18 @@ export function App(): JSX.Element {
   async function trustProject(): Promise<void> {
     setBusy("Scanning trusted project…");
     setError(null);
+    focusAfterTrustRef.current = true;
     const pending = window.studio.trustSelectedProject();
-    closeTrustDialog();
+    closeTrustDialog(false);
+    requestAnimationFrame(() => cancelScanButtonRef.current?.focus());
     const result = await pending;
     if (result.ok) applySnapshot(result.value);
-    else setError(result.error.message);
+    else {
+      focusAfterTrustRef.current = false;
+      setError(result.error.message);
+    }
     setBusy(null);
+    if (!result.ok) requestAnimationFrame(() => chooseProjectButtonRef.current?.focus());
   }
 
   async function removeTrust(): Promise<void> {
@@ -208,7 +227,7 @@ export function App(): JSX.Element {
           </div>
           <div className="topbar-actions">
             {project?.trusted && (
-              <button className="button secondary" onClick={() => void rescan()} disabled={Boolean(busy)} data-testid="rescan-button">
+              <button ref={rescanButtonRef} className="button secondary" onClick={() => void rescan()} disabled={Boolean(busy)} data-testid="rescan-button">
                 <RefreshCw size={17} aria-hidden="true" /> Rescan
               </button>
             )}
@@ -219,7 +238,7 @@ export function App(): JSX.Element {
         </header>
 
         {error && <div className="error-banner" role="alert"><AlertTriangle size={18} /><span>{error}</span><button aria-label="Dismiss error" onClick={() => setError(null)}><X size={17} /></button></div>}
-        {busy && <div className="busy-banner" role="status"><span className="spinner" aria-hidden="true" /><span>{busy}</span>{busy.includes("Scanning") && <button className="text-button" onClick={() => void cancelScan()}>Cancel scan</button>}</div>}
+        {busy && <div className="busy-banner" role="status" aria-live="polite"><span className="spinner" aria-hidden="true" /><span>{busy}</span>{busy.includes("Scanning") && <button ref={cancelScanButtonRef} className="text-button" onClick={() => void cancelScan()}>Cancel scan</button>}</div>}
 
         <section ref={workspaceRef} className="workspace" aria-busy={Boolean(busy)}>
           {loading ? <LoadingState /> : !project ? <WelcomeState onChoose={() => void chooseProject()} /> : (
@@ -454,7 +473,8 @@ function formatStatus(value: string): string {
   };
   return labels[value] ?? value.replaceAll("-", " ").replace(/^./u, (letter) => letter.toUpperCase());
 }
-function mainSceneStatus(scan: ProjectScanReport): "confirmed" | "warning" | "limitation" {
+export function mainSceneStatus(scan: ProjectScanReport): "confirmed" | "warning" | "limitation" {
+  if (!scan.configuredMainScene || !scan.configuredMainSceneKind) return "warning";
   if (scan.configuredMainSceneKind === "uid") return "limitation";
   if (scan.configuredMainSceneKind === "unknown" || scan.configuredMainSceneExists === false) return "warning";
   return "confirmed";

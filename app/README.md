@@ -11,7 +11,7 @@ It does not run Godot, execute project code, infer builds, modify the selected p
 - `src/renderer/`: the Studio, Project, and Builds interface.
 - `src/shared/`: typed projections shared across the process boundary.
 - `test/`: scanner and state-store tests plus controlled fixtures.
-- `acceptance/`: owner-visible Electron flows for a fixture and a real project.
+- `acceptance/`: portable fixture flow and a separately invoked owner-evidence flow.
 - `scripts/`: read-only scan and whole-tree integrity evidence tools.
 
 The BrowserWindow uses context isolation, disables Node integration, enables renderer sandboxing and web security, denies permission requests, loads only the packaged local renderer, rejects navigation and new windows, and validates IPC sender, frame, and origin.
@@ -48,6 +48,12 @@ npm run test:owner-evidence
 ```
 
 Without those three variables, the owner-evidence suite exits successfully with an explicit skipped-test message. It is never part of the portable acceptance result.
+
+## Continuous integration
+
+`.github/workflows/milestone1-closure.yml` runs `npm ci`, TypeScript checks, Vitest, and the production build on a hosted Windows runner.
+
+The Electron acceptance flow remains the local portable command above. Hosted runners are not treated as evidence for Windows desktop focus behavior because their interactive desktop conditions are not a stable product contract. Owner-project evidence is never uploaded to or run in CI.
 
 `npm run dev` builds the local renderer and launches Electron. It does not start a local HTTP server.
 
