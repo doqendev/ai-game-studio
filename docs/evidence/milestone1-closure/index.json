@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "milestone": "Milestone 1 acceptance closure",
+  "repositoryBranch": "internal-creator-prototype",
+  "closureCommit": "8fe193c5c321f206f504ba9090ee90f26471d902",
+  "ciRun": "https://github.com/doqendev/ai-game-studio/actions/runs/29587261501",
+  "realProjectIntegrity": {
+    "root": "E:\\doqendev\\GameDev\\bakery-sort",
+    "beforeAndAfterMatch": true,
+    "fileCount": 5928,
+    "totalBytes": 2682293420,
+    "treeSha256": "24108e89d5788b6869104f71aa6d0743a8910edac15428a124195e953cef549c"
+  },
+  "files": [
+    {
+      "path": "real-project-before.json",
+      "bytes": 298,
+      "sha256": "80791524d2aa545e6326cdd35ed273c0aaa99efd96bd08856b31474c954118d0"
+    },
+    {
+      "path": "real-project-after.json",
+      "bytes": 298,
+      "sha256": "8f45ccabe55144492f7bac3bed04c0012affb3ace4017658fce77328dabd9b20"
+    }
+  ]
+}
