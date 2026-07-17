@@ -1,4 +1,4 @@
-import { cp, mkdir, mkdtemp, readFile, rm, symlink, truncate, unlink, writeFile } from "node:fs/promises";
+import { cp, mkdir, mkdtemp, readFile, realpath, rm, symlink, truncate, unlink, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -207,10 +207,11 @@ describe("read-only Godot project scanner", () => {
     const root = await copiedComprehensiveFixture();
     const unreadablePath = join(root, "scripts", "unreadable.gd");
     await writeFile(unreadablePath, "extends Node\n", "utf8");
+    const canonicalUnreadablePath = await realpath(unreadablePath);
     const report = await scanGodotProject(root, {
       io: {
         readText: async (path, signal) => {
-          if (path === unreadablePath) throw Object.assign(new Error("denied"), { code: "EACCES" });
+          if (path === canonicalUnreadablePath) throw Object.assign(new Error("denied"), { code: "EACCES" });
           return readFile(path, { encoding: "utf8", ...(signal ? { signal } : {}) });
         },
       },

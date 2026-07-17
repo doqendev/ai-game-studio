@@ -93,7 +93,7 @@ async function setupController(): Promise<{
   await store.initialize();
   const controller = new StudioController(store, scanner);
   await controller.selectProject(project);
-  await store.trustProject(project);
+  await store.trustProject(controller.snapshot().selectedProject!.path);
   return { controller, operations, report };
 }
 
