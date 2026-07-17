@@ -9,7 +9,7 @@ This packet records the implemented read-only cockpit only. It contains no Codex
 - Type checks: passed.
 - Scanner and state tests: 16 of 16 passed across 2 test files.
 - Production build: passed.
-- Electron acceptance flows: 2 of 2 passed.
+- Electron acceptance flows: 2 of 2 passed, including the visible project-selection path, trust cancellation/recording/removal, rescan, navigation, and owner-note editing.
 - Dependency audit: 0 vulnerabilities reported.
 - Renderer boundary asserted: no `require` or `process` global; exactly seven purpose-specific preload methods.
 

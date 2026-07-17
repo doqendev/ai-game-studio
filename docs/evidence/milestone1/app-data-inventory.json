@@ -5,12 +5,12 @@
     {
       "path": "fixture\\studio-state.json",
       "bytes": 512,
-      "sha256": "bb6efcbae954265b7fb1c6fbc59c79c096c1fc1fced79108935b097463a3789b"
+      "sha256": "f6bc7a79b6195903237578b90c9e0884fe8fe7960f1bc3677b4657e34f250ad4"
     },
     {
       "path": "bakery-sort\\studio-state.json",
       "bytes": 490,
-      "sha256": "3daf856f315aa9382569a0d250466746f07229b048c9aaa946e8535ff38b3d16"
+      "sha256": "ed1ac15c1e142d957b7c5e2ee9a64539681b26c672f37ba22e36aef9d6559774"
     }
   ],
   "electronOwnedTopLevelEntries": [

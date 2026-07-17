@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "completedAt": "2026-07-17T10:01:37.015Z",
+  "completedAt": "2026-07-17T10:09:37.884Z",
   "environment": {
     "platform": "Windows",
     "node": "22.22.2",
@@ -26,7 +26,7 @@
     {
       "command": "npm run test:acceptance",
       "result": "passed",
-      "detail": "2 Electron acceptance flows passed in 6.2 seconds: controlled fixture and Bakery Sort."
+      "detail": "2 Electron acceptance flows passed in 6.9 seconds: controlled fixture and Bakery Sort."
     },
     {
       "command": "npm audit --audit-level=moderate",
@@ -35,7 +35,9 @@
     }
   ],
   "acceptanceAssertions": [
-    "First-open trust can be cancelled or recorded.",
+    "The visible Choose project action selects a controlled project through the dialog boundary.",
+    "First-open trust can be cancelled, recorded, removed, and recorded again.",
+    "A trusted project can be rescanned from the visible control.",
     "The renderer has no require or process global.",
     "The preload exposes exactly seven purpose-specific methods.",
     "Owner notes persist outside the selected project.",

@@ -16,9 +16,17 @@ test.beforeAll(async () => {
 });
 
 test("controlled fixture supports the complete read-only cockpit flow", async () => {
-  const app = await launch(fixtureProject, resolve(acceptanceAppData, "fixture"));
+  const app = await launch(null, resolve(acceptanceAppData, "fixture"));
   try {
+    await app.evaluate(({ dialog }, selectedPath) => {
+      Object.defineProperty(dialog, "showOpenDialog", {
+        configurable: true,
+        value: async () => ({ canceled: false, filePaths: [selectedPath], bookmarks: [] }),
+      });
+    }, fixtureProject);
     const page = await app.firstWindow();
+    await expect(page.getByRole("heading", { name: "See what is really in a Godot project." })).toBeVisible();
+    await page.getByRole("button", { name: "Choose project", exact: true }).first().click();
     await expect(page.getByTestId("trust-dialog")).toBeVisible();
     await expect(page.getByText("Open only a project that you created or trust.")).toBeVisible();
     await page.getByTestId("cancel-trust-button").click();
@@ -58,6 +66,15 @@ test("controlled fixture supports the complete read-only cockpit flow", async ()
     await expect(page.getByRole("heading", { name: "No builds recorded" })).toBeVisible();
     await page.waitForTimeout(350);
     await page.screenshot({ path: resolve(screenshotRoot, "builds-controlled-fixture.png"), animations: "disabled" });
+
+    await page.getByRole("button", { name: "Rescan" }).click();
+    await page.getByRole("button", { name: "Studio", exact: true }).click();
+    await expect(page.locator(".metric-card").filter({ hasText: "Scan state" })).toContainText(/Complete|Partial/u, { timeout: 30_000 });
+    await page.getByRole("button", { name: "Remove stored trust" }).click();
+    await expect(page.getByText("Scanning is paused").first()).toBeVisible();
+    await page.getByRole("button", { name: "Review trust" }).click();
+    await page.getByTestId("trust-project-button").click();
+    await expect(page.locator(".metric-card").filter({ hasText: "Scan state" })).toContainText(/Complete|Partial/u, { timeout: 30_000 });
   } finally {
     await app.close();
   }
@@ -86,10 +103,10 @@ test("real Bakery Sort project opens, scans and exposes its configured state", a
   }
 });
 
-async function launch(project: string, userData: string) {
+async function launch(project: string | null, userData: string) {
   return electron.launch({
     executablePath: electronExecutable,
-    args: [appRoot, `--project=${project}`, `--studio-user-data=${userData}`],
+    args: [appRoot, ...(project ? [`--project=${project}`] : []), `--studio-user-data=${userData}`],
     cwd: appRoot,
     env: { ...process.env, ELECTRON_ENABLE_SECURITY_WARNINGS: "true" },
   });

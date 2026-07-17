@@ -14,7 +14,7 @@
     {
       "path": "app-data-inventory.json",
       "bytes": 980,
-      "sha256": "3e76b10d94de4bb15a3c0786ad73f374fd6c856d4bdbc9ee91156d98f3c7bd11"
+      "sha256": "74a987857d92ae408d361e6f0e7fc2911356feadd8a8ec5dd340e31fe74ac84a"
     },
     {
       "path": "controlled-fixture-scan.json",
@@ -23,18 +23,18 @@
     },
     {
       "path": "README.md",
-      "bytes": 5277,
-      "sha256": "5268a4c1455b471e05ff19fa4629d0c2c3f1ad0a83c8c8d80d8eff10f50966e7"
+      "bytes": 5405,
+      "sha256": "fde5b397653a0a3c1665b3182e86f2bcae7af8c82b15676c3303eda172e39bf8"
     },
     {
       "path": "real-project-after.json",
       "bytes": 298,
-      "sha256": "be7fb3767e8c58e05ce8dc804ca125088e9e7b811f32f5a80884a1cb8cac24dc"
+      "sha256": "0e1b504cb854b9e24c0ee97950c8bd00cff6a6ede19644d0c6dc799ba5b5f835"
     },
     {
       "path": "real-project-before.json",
       "bytes": 298,
-      "sha256": "a13a06a0f724c6b4850854e20282c5cb67af6e03a4f9d41cbb5bb7967db90683"
+      "sha256": "bd25d0d006e32ebf32331fc8f46193d302f71bbca38b4ffc0d38c63d9670e2af"
     },
     {
       "path": "real-project-scan.json",
@@ -53,18 +53,18 @@
     },
     {
       "path": "screenshots/studio-bakery-sort.png",
-      "bytes": 90549,
-      "sha256": "efa2f3db55b5aa4d2bd120173ac7ad847c26ba3426b121ef9dbe75392a502b89"
+      "bytes": 90602,
+      "sha256": "5209bc7565fd021c883381e8483a968e75a6237ff14de7c1ccacfaf8a72ab69c"
     },
     {
       "path": "screenshots/studio-controlled-fixture.png",
-      "bytes": 91121,
-      "sha256": "b2b2ee380dabf7a5c5761979a46245f2bc2dea1ff4fbb419bf00fb6db7879233"
+      "bytes": 91182,
+      "sha256": "07c70a4a1cd10df08fc4d216e62f594ee30645f1bb54dc5a92d9a04afb821e1f"
     },
     {
       "path": "test-results.json",
-      "bytes": 1504,
-      "sha256": "abf81d1262aeda959d9e0bfdbe996e6b77fe3601335df33e7f015ad88a768216"
+      "bytes": 1698,
+      "sha256": "a062083d69c8182fabb8c12726c23a7dc4bed9500fb689854c7fec282d04d053"
     }
   ]
 }
