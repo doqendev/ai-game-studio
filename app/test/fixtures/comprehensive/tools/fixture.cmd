@@ -1,0 +1,1 @@
+@echo controlled fixture only

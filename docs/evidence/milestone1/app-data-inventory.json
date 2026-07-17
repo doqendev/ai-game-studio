@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "acceptanceRoot": "C:\\Users\\Marcos\\AppData\\Local\\AI Game Studio\\Milestone1Acceptance",
+  "functionalStateFiles": [
+    {
+      "path": "fixture\\studio-state.json",
+      "bytes": 512,
+      "sha256": "bb6efcbae954265b7fb1c6fbc59c79c096c1fc1fced79108935b097463a3789b"
+    },
+    {
+      "path": "bakery-sort\\studio-state.json",
+      "bytes": 490,
+      "sha256": "3daf856f315aa9382569a0d250466746f07229b048c9aaa946e8535ff38b3d16"
+    }
+  ],
+  "electronOwnedTopLevelEntries": [
+    "blob_storage",
+    "Cache",
+    "Code Cache",
+    "DawnGraphiteCache",
+    "DawnWebGPUCache",
+    "DevToolsActivePort",
+    "DIPS",
+    "GPUCache",
+    "Local State",
+    "Local Storage",
+    "Network",
+    "Preferences",
+    "Session Storage",
+    "Shared Dictionary"
+  ],
+  "note": "Electron creates the listed Chromium profile and cache entries. The application-owned product state is studio-state.json. No state file was written to either selected project."
+}

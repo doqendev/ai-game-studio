@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "completedAt": "2026-07-17T10:01:37.015Z",
+  "environment": {
+    "platform": "Windows",
+    "node": "22.22.2",
+    "npm": "9.5.1",
+    "electron": "43.1.1"
+  },
+  "results": [
+    {
+      "command": "npm run check",
+      "result": "passed",
+      "detail": "Main/preload/shared and renderer TypeScript projects passed no-emit checks."
+    },
+    {
+      "command": "npm test",
+      "result": "passed",
+      "detail": "2 test files; 16 tests passed."
+    },
+    {
+      "command": "npm run build",
+      "result": "passed",
+      "detail": "Electron main/preload TypeScript and Vite renderer production builds completed."
+    },
+    {
+      "command": "npm run test:acceptance",
+      "result": "passed",
+      "detail": "2 Electron acceptance flows passed in 6.2 seconds: controlled fixture and Bakery Sort."
+    },
+    {
+      "command": "npm audit --audit-level=moderate",
+      "result": "passed",
+      "detail": "0 vulnerabilities reported."
+    }
+  ],
+  "acceptanceAssertions": [
+    "First-open trust can be cancelled or recorded.",
+    "The renderer has no require or process global.",
+    "The preload exposes exactly seven purpose-specific methods.",
+    "Owner notes persist outside the selected project.",
+    "Studio, Project, and Builds are navigable.",
+    "The fixture and real project expose their configured main scene.",
+    "The Builds view reports No builds recorded.",
+    "Whole-tree integrity is unchanged across the final real-project trial."
+  ]
+}

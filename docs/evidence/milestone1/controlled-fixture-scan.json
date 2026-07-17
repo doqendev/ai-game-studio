@@ -1,0 +1,345 @@
+{
+  "schemaVersion": 1,
+  "projectRoot": "E:\\doqendev\\AI Game Studio\\app\\test\\fixtures\\comprehensive",
+  "projectName": "Cockpit Fixture",
+  "status": "complete",
+  "startedAt": "2026-07-17T09:59:28.627Z",
+  "completedAt": "2026-07-17T09:59:28.655Z",
+  "durationMs": 28,
+  "limits": {
+    "maximumFiles": 25000,
+    "maximumDepth": 32,
+    "maximumTextReadBytes": 2097152,
+    "largeFileBytes": 8388608,
+    "maximumReportedItemsPerGroup": 300
+  },
+  "projectGodot": {
+    "exists": true,
+    "readable": true,
+    "malformed": false,
+    "diagnostics": []
+  },
+  "configuredMainScene": "scenes/main.tscn",
+  "configuredMainSceneExists": true,
+  "totals": {
+    "files": 13,
+    "directories": 12,
+    "bytes": 1393,
+    "skippedGeneratedDirectories": 0
+  },
+  "groups": {
+    "scenes": {
+      "total": 2,
+      "items": [
+        {
+          "path": "scenes/main.tscn",
+          "extension": ".tscn",
+          "bytes": 168
+        },
+        {
+          "path": "scenes/menu.tscn",
+          "extension": ".tscn",
+          "bytes": 141
+        }
+      ],
+      "truncated": false
+    },
+    "scripts": {
+      "total": 2,
+      "items": [
+        {
+          "path": "scripts/editor_helper.gd",
+          "extension": ".gd",
+          "bytes": 86
+        },
+        {
+          "path": "scripts/fixture_state.gd",
+          "extension": ".gd",
+          "bytes": 29
+        }
+      ],
+      "truncated": false
+    },
+    "images": {
+      "total": 1,
+      "items": [
+        {
+          "path": "assets/images/player.png",
+          "extension": ".png",
+          "bytes": 29
+        }
+      ],
+      "truncated": false
+    },
+    "audio": {
+      "total": 1,
+      "items": [
+        {
+          "path": "assets/audio/theme.ogg",
+          "extension": ".ogg",
+          "bytes": 29
+        }
+      ],
+      "truncated": false
+    },
+    "fonts": {
+      "total": 1,
+      "items": [
+        {
+          "path": "assets/fonts/interface.ttf",
+          "extension": ".ttf",
+          "bytes": 28
+        }
+      ],
+      "truncated": false
+    },
+    "resources": {
+      "total": 0,
+      "items": [],
+      "truncated": false
+    },
+    "models": {
+      "total": 0,
+      "items": [],
+      "truncated": false
+    },
+    "video": {
+      "total": 0,
+      "items": [],
+      "truncated": false
+    },
+    "translations": {
+      "total": 0,
+      "items": [],
+      "truncated": false
+    },
+    "documents": {
+      "total": 0,
+      "items": [],
+      "truncated": false
+    },
+    "otherRecognised": {
+      "total": 2,
+      "items": [
+        {
+          "path": "addons/demo/plugin.cfg",
+          "extension": ".cfg",
+          "bytes": 83
+        },
+        {
+          "path": "project.godot",
+          "extension": ".godot",
+          "bytes": 592
+        }
+      ],
+      "truncated": false
+    }
+  },
+  "autoloads": [
+    {
+      "name": "FixtureState",
+      "path": "scripts/fixture_state.gd",
+      "singleton": true,
+      "exists": true
+    }
+  ],
+  "inputActions": [
+    "jump",
+    "move_left"
+  ],
+  "displaySettings": [
+    {
+      "name": "window/size/viewport_height",
+      "value": "540"
+    },
+    {
+      "name": "window/size/viewport_width",
+      "value": "960"
+    },
+    {
+      "name": "window/stretch/mode",
+      "value": "\"canvas_items\""
+    }
+  ],
+  "renderingSettings": [
+    {
+      "name": "renderer/rendering_method",
+      "value": "\"gl_compatibility\""
+    },
+    {
+      "name": "textures/default_filters/use_nearest_mipmap_filter",
+      "value": "true"
+    }
+  ],
+  "enabledPlugins": [
+    "addons/demo/plugin.cfg"
+  ],
+  "gdExtensions": {
+    "total": 1,
+    "items": [
+      {
+        "path": "native/demo.gdextension",
+        "extension": ".gdextension",
+        "bytes": 112
+      }
+    ],
+    "truncated": false
+  },
+  "nativeLibraries": {
+    "total": 1,
+    "items": [
+      {
+        "path": "native/demo.dll",
+        "extension": ".dll",
+        "bytes": 38
+      }
+    ],
+    "truncated": false
+  },
+  "executables": {
+    "total": 1,
+    "items": [
+      {
+        "path": "tools/fixture.cmd",
+        "extension": ".cmd",
+        "bytes": 30
+      }
+    ],
+    "truncated": false
+  },
+  "activeContent": [
+    {
+      "path": "addons/demo/plugin.cfg",
+      "capability": "Editor plugin declaration",
+      "evidence": "A plugin.cfg file exists"
+    },
+    {
+      "path": "scripts/editor_helper.gd",
+      "capability": "Editor-executed script",
+      "evidence": "Contains @tool"
+    },
+    {
+      "path": "scripts/editor_helper.gd",
+      "capability": "Operating-system command",
+      "evidence": "Contains OS.execute(...)"
+    }
+  ],
+  "missingReferences": [
+    {
+      "sourcePath": "scenes/menu.tscn",
+      "referencedPath": "assets/images/missing-banner.png"
+    }
+  ],
+  "unreadableFiles": [],
+  "largeFiles": {
+    "total": 0,
+    "items": [],
+    "truncated": false
+  },
+  "unsupportedFiles": {
+    "total": 1,
+    "items": [
+      {
+        "path": "data/unknown.assetx",
+        "extension": ".assetx",
+        "bytes": 28
+      }
+    ],
+    "truncated": false
+  },
+  "reparsePoints": [],
+  "truth": [
+    {
+      "id": "truth-1",
+      "kind": "confirmed",
+      "title": "project.godot found",
+      "detail": "The selected root contains a regular project.godot file.",
+      "path": "project.godot"
+    },
+    {
+      "id": "truth-2",
+      "kind": "confirmed",
+      "title": "Read-only file inventory completed",
+      "detail": "13 regular files and 12 directories were observed without executing project code."
+    },
+    {
+      "id": "truth-3",
+      "kind": "confirmed",
+      "title": "Configured main scene found",
+      "detail": "scenes/main.tscn exists in the observed file inventory.",
+      "path": "scenes/main.tscn"
+    },
+    {
+      "id": "truth-4",
+      "kind": "warning",
+      "title": "Enabled editor plugin detected",
+      "detail": "1 plugin path(s) are enabled in project.godot. Plugin code can execute in the Godot editor."
+    },
+    {
+      "id": "truth-5",
+      "kind": "warning",
+      "title": "GDExtension declaration detected",
+      "detail": "1 .gdextension declaration(s) were observed. Native code may be loaded by the project."
+    },
+    {
+      "id": "truth-6",
+      "kind": "warning",
+      "title": "Native library content detected",
+      "detail": "1 native-library file(s) were observed."
+    },
+    {
+      "id": "truth-7",
+      "kind": "warning",
+      "title": "Executable content detected",
+      "detail": "1 executable or command file(s) were observed."
+    },
+    {
+      "id": "truth-8",
+      "kind": "warning",
+      "title": "Active project capabilities detected",
+      "detail": "3 editor, process, network, or command capability marker(s) were observed in supported text files."
+    },
+    {
+      "id": "truth-9",
+      "kind": "warning",
+      "title": "Local resource references appear to be missing",
+      "detail": "1 directly quoted res:// reference(s) did not match the observed inventory."
+    },
+    {
+      "id": "truth-10",
+      "kind": "warning",
+      "title": "Unsupported file types detected",
+      "detail": "1 file(s) use extensions the scanner does not interpret."
+    },
+    {
+      "id": "truth-11",
+      "kind": "limitation",
+      "title": "Dynamic loading may be invisible",
+      "detail": "Resources assembled from strings or loaded only at runtime may not appear in the reference check."
+    },
+    {
+      "id": "truth-12",
+      "kind": "limitation",
+      "title": "Runtime relationships are not observed",
+      "detail": "The scanner does not instantiate scenes, execute scripts, or observe runtime-created nodes and resources."
+    },
+    {
+      "id": "truth-13",
+      "kind": "limitation",
+      "title": "The project was not run",
+      "detail": "This scan cannot prove that the project imports, starts, builds, or behaves correctly."
+    },
+    {
+      "id": "truth-14",
+      "kind": "limitation",
+      "title": "Gameplay quality is outside this scan",
+      "detail": "The scanner cannot determine fun, feel, pacing, balance, performance, or visual quality."
+    },
+    {
+      "id": "truth-15",
+      "kind": "limitation",
+      "title": "Generated metadata is intentionally skipped",
+      "detail": "0 .git, .godot, or .import directories were not traversed."
+    }
+  ]
+}

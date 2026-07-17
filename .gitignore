@@ -9,6 +9,7 @@ out/
 build/
 release/
 coverage/
+test-results/
 .vite/
 *.tsbuildinfo
 

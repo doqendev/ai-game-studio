@@ -1,0 +1,37 @@
+; Controlled Milestone 1 fixture.
+config_version=5
+
+[application]
+
+config/name="Cockpit Fixture"
+run/main_scene="res://scenes/main.tscn"
+
+[autoload]
+
+FixtureState="*res://scripts/fixture_state.gd"
+
+[display]
+
+window/size/viewport_width=960
+window/size/viewport_height=540
+window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/demo/plugin.cfg")
+
+[input]
+
+jump={
+"deadzone": 0.5,
+"events": []
+}
+move_left={
+"deadzone": 0.5,
+"events": []
+}
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+textures/default_filters/use_nearest_mipmap_filter=true

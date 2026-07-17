@@ -1,0 +1,39 @@
+{
+  "name": "ai-game-studio-project-cockpit",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Read-only Godot project cockpit for AI Game Studio Milestone 1",
+  "main": "dist/main/main/main.js",
+  "scripts": {
+    "build": "npm run build:main && npm run build:renderer",
+    "build:main": "tsc -p tsconfig.main.json",
+    "build:renderer": "vite build",
+    "check": "tsc -p tsconfig.main.json --noEmit && tsc -p tsconfig.renderer.json --noEmit",
+    "dev": "npm run build && electron .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:acceptance": "npm run build && playwright test",
+    "scan": "tsx scripts/scan-project.ts",
+    "integrity": "tsx scripts/project-integrity.ts"
+  },
+  "dependencies": {
+    "lucide-react": "1.25.0",
+    "react": "19.2.7",
+    "react-dom": "19.2.7"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.61.1",
+    "@types/node": "22.20.1",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.3",
+    "electron": "43.1.1",
+    "tsx": "4.20.6",
+    "typescript": "7.0.2",
+    "vite": "8.1.5",
+    "vitest": "4.1.10"
+  },
+  "engines": {
+    "node": "22.22.2"
+  }
+}

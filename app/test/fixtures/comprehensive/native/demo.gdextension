@@ -1,0 +1,7 @@
+[configuration]
+
+entry_symbol="fixture_library_init"
+
+[libraries]
+
+windows.debug.x86_64="res://native/demo.dll"

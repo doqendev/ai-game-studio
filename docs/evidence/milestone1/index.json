@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "milestone": "Milestone 1 - Read-Only Project Cockpit",
+  "repositoryBranch": "internal-creator-prototype",
+  "archivalBaseline": "9fe78b874f8eef72721c71db73337203ef9b1e8f",
+  "realProjectIntegrity": {
+    "root": "E:\\doqendev\\GameDev\\bakery-sort",
+    "beforeAndAfterMatch": true,
+    "fileCount": 5928,
+    "totalBytes": 2682295957,
+    "treeSha256": "fc5114c819a8f9e5c090ecdcf2aa17bcd4335136c9674e3b7cac64c1829852ad"
+  },
+  "files": [
+    {
+      "path": "app-data-inventory.json",
+      "bytes": 980,
+      "sha256": "3e76b10d94de4bb15a3c0786ad73f374fd6c856d4bdbc9ee91156d98f3c7bd11"
+    },
+    {
+      "path": "controlled-fixture-scan.json",
+      "bytes": 8282,
+      "sha256": "5a2dc9a13e5cedeed2fda09f30ca9e9234d9f51531dc7e7ec4b57283fdf44997"
+    },
+    {
+      "path": "README.md",
+      "bytes": 5277,
+      "sha256": "5268a4c1455b471e05ff19fa4629d0c2c3f1ad0a83c8c8d80d8eff10f50966e7"
+    },
+    {
+      "path": "real-project-after.json",
+      "bytes": 298,
+      "sha256": "be7fb3767e8c58e05ce8dc804ca125088e9e7b811f32f5a80884a1cb8cac24dc"
+    },
+    {
+      "path": "real-project-before.json",
+      "bytes": 298,
+      "sha256": "a13a06a0f724c6b4850854e20282c5cb67af6e03a4f9d41cbb5bb7967db90683"
+    },
+    {
+      "path": "real-project-scan.json",
+      "bytes": 231603,
+      "sha256": "d4cc8e15ce9b3c9b798dbba6d7e8c8169bacf131c16be7a565b9d71359e4e88a"
+    },
+    {
+      "path": "screenshots/builds-controlled-fixture.png",
+      "bytes": 100489,
+      "sha256": "d959ad46de1cd2b75553b34f5d595cdcddaf93b653ede42578bb6d469ba4dc99"
+    },
+    {
+      "path": "screenshots/project-controlled-fixture.png",
+      "bytes": 126006,
+      "sha256": "48ded1fccd59e9cb1bc2960526e955c3b90e2474f7df976425a89ae37fe8b463"
+    },
+    {
+      "path": "screenshots/studio-bakery-sort.png",
+      "bytes": 90549,
+      "sha256": "efa2f3db55b5aa4d2bd120173ac7ad847c26ba3426b121ef9dbe75392a502b89"
+    },
+    {
+      "path": "screenshots/studio-controlled-fixture.png",
+      "bytes": 91121,
+      "sha256": "b2b2ee380dabf7a5c5761979a46245f2bc2dea1ff4fbb419bf00fb6db7879233"
+    },
+    {
+      "path": "test-results.json",
+      "bytes": 1504,
+      "sha256": "abf81d1262aeda959d9e0bfdbe996e6b77fe3601335df33e7f015ad88a768216"
+    }
+  ]
+}
