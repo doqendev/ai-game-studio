@@ -1,17 +1,18 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "projectRoot": "E:\\doqendev\\AI Game Studio\\app\\test\\fixtures\\comprehensive",
   "projectName": "Cockpit Fixture",
   "status": "complete",
-  "startedAt": "2026-07-17T09:59:28.627Z",
-  "completedAt": "2026-07-17T09:59:28.655Z",
-  "durationMs": 28,
+  "startedAt": "2026-07-17T12:54:26.522Z",
+  "completedAt": "2026-07-17T12:54:26.566Z",
+  "durationMs": 44,
   "limits": {
     "maximumFiles": 25000,
     "maximumDepth": 32,
     "maximumTextReadBytes": 2097152,
     "largeFileBytes": 8388608,
-    "maximumReportedItemsPerGroup": 300
+    "maximumReportedItemsPerGroup": 300,
+    "maximumMissingReferences": 1000
   },
   "projectGodot": {
     "exists": true,
@@ -20,13 +21,68 @@
     "diagnostics": []
   },
   "configuredMainScene": "scenes/main.tscn",
+  "configuredMainSceneKind": "path",
   "configuredMainSceneExists": true,
   "totals": {
-    "files": 13,
-    "directories": 12,
-    "bytes": 1393,
+    "files": 23,
+    "directories": 19,
+    "bytes": 1989,
     "skippedGeneratedDirectories": 0
   },
+  "origins": {
+    "project-source": {
+      "files": 13,
+      "directories": 12,
+      "bytes": 1393
+    },
+    "tooling": {
+      "files": 1,
+      "directories": 1,
+      "bytes": 8
+    },
+    "generated-output": {
+      "files": 7,
+      "directories": 5,
+      "bytes": 515
+    },
+    "ignored-by-godot": {
+      "files": 2,
+      "directories": 1,
+      "bytes": 73
+    },
+    "unknown": {
+      "files": 0,
+      "directories": 0,
+      "bytes": 0
+    }
+  },
+  "classifiedRoots": [
+    {
+      "path": "android",
+      "origin": "tooling",
+      "reason": "Godot Android tooling markers were observed (.build_version plus the generated Gradle root).",
+      "files": 1,
+      "directories": 1,
+      "bytes": 8
+    },
+    {
+      "path": "android/build",
+      "origin": "generated-output",
+      "reason": "The directory is the confirmed Godot Android Gradle output root and contains .gdignore, build.gradle, and gradlew.",
+      "files": 7,
+      "directories": 5,
+      "bytes": 515
+    },
+    {
+      "path": "art",
+      "origin": "ignored-by-godot",
+      "reason": "The directory contains .gdignore, so Godot excludes its descendants from the project filesystem.",
+      "files": 2,
+      "directories": 1,
+      "bytes": 73
+    }
+  ],
+  "excludedRoots": [],
   "groups": {
     "scenes": {
       "total": 2,
@@ -174,6 +230,17 @@
   "enabledPlugins": [
     "addons/demo/plugin.cfg"
   ],
+  "pluginDeclarations": {
+    "total": 1,
+    "items": [
+      {
+        "path": "addons/demo/plugin.cfg",
+        "extension": ".cfg",
+        "bytes": 83
+      }
+    ],
+    "truncated": false
+  },
   "gdExtensions": {
     "total": 1,
     "items": [
@@ -209,11 +276,6 @@
   },
   "activeContent": [
     {
-      "path": "addons/demo/plugin.cfg",
-      "capability": "Editor plugin declaration",
-      "evidence": "A plugin.cfg file exists"
-    },
-    {
       "path": "scripts/editor_helper.gd",
       "capability": "Editor-executed script",
       "evidence": "Contains @tool"
@@ -227,9 +289,11 @@
   "missingReferences": [
     {
       "sourcePath": "scenes/menu.tscn",
-      "referencedPath": "assets/images/missing-banner.png"
+      "referencedPath": "assets/images/missing-banner.png",
+      "evidence": "structured-resource"
     }
   ],
+  "missingReferencesTruncated": false,
   "unreadableFiles": [],
   "largeFiles": {
     "total": 0,
@@ -259,87 +323,111 @@
     {
       "id": "truth-2",
       "kind": "confirmed",
-      "title": "Read-only file inventory completed",
-      "detail": "13 regular files and 12 directories were observed without executing project code."
+      "title": "Read-only inventory completed",
+      "detail": "23 regular files were observed: 13 project-source, 1 tooling, 7 generated/output, and 2 ignored by Godot."
     },
     {
       "id": "truth-3",
       "kind": "confirmed",
       "title": "Configured main scene found",
-      "detail": "scenes/main.tscn exists in the observed file inventory.",
+      "detail": "scenes/main.tscn exists in the project-source inventory.",
       "path": "scenes/main.tscn"
     },
     {
       "id": "truth-4",
+      "kind": "confirmed",
+      "title": "Tooling content separated",
+      "detail": "1 file(s) were classified as tooling rather than project source."
+    },
+    {
+      "id": "truth-5",
+      "kind": "confirmed",
+      "title": "Generated/output content separated",
+      "detail": "7 file(s) were kept in the observed totals but excluded from source-level inventory and capability counts."
+    },
+    {
+      "id": "truth-6",
+      "kind": "confirmed",
+      "title": "Godot-ignored content separated",
+      "detail": "2 file(s) beneath .gdignore boundaries were kept in observed totals but excluded from project source."
+    },
+    {
+      "id": "truth-7",
       "kind": "warning",
       "title": "Enabled editor plugin detected",
       "detail": "1 plugin path(s) are enabled in project.godot. Plugin code can execute in the Godot editor."
     },
     {
-      "id": "truth-5",
+      "id": "truth-8",
+      "kind": "confirmed",
+      "title": "Editor plugin declarations observed",
+      "detail": "1 plugin.cfg declaration(s) exist in project source. A declaration alone does not establish that a plugin is enabled."
+    },
+    {
+      "id": "truth-9",
       "kind": "warning",
       "title": "GDExtension declaration detected",
       "detail": "1 .gdextension declaration(s) were observed. Native code may be loaded by the project."
     },
     {
-      "id": "truth-6",
+      "id": "truth-10",
       "kind": "warning",
       "title": "Native library content detected",
       "detail": "1 native-library file(s) were observed."
     },
     {
-      "id": "truth-7",
+      "id": "truth-11",
       "kind": "warning",
       "title": "Executable content detected",
       "detail": "1 executable or command file(s) were observed."
     },
     {
-      "id": "truth-8",
+      "id": "truth-12",
       "kind": "warning",
       "title": "Active project capabilities detected",
-      "detail": "3 editor, process, network, or command capability marker(s) were observed in supported text files."
+      "detail": "2 editor, process, network, or command capability marker(s) were observed in supported text files."
     },
     {
-      "id": "truth-9",
+      "id": "truth-13",
       "kind": "warning",
-      "title": "Local resource references appear to be missing",
-      "detail": "1 directly quoted res:// reference(s) did not match the observed inventory."
+      "title": "Confirmed missing local file dependencies",
+      "detail": "1 concrete dependency path(s) from supported structured fields or static load/preload calls were absent from project source."
     },
     {
-      "id": "truth-10",
+      "id": "truth-14",
       "kind": "warning",
       "title": "Unsupported file types detected",
       "detail": "1 file(s) use extensions the scanner does not interpret."
     },
     {
-      "id": "truth-11",
+      "id": "truth-15",
       "kind": "limitation",
-      "title": "Dynamic loading may be invisible",
-      "detail": "Resources assembled from strings or loaded only at runtime may not appear in the reference check."
+      "title": "Dynamic and nondependency paths are not missing-file findings",
+      "detail": "Formatted templates, directory literals, output targets, arbitrary quoted res:// strings, and resources assembled at runtime are not treated as confirmed missing dependencies."
     },
     {
-      "id": "truth-12",
+      "id": "truth-16",
       "kind": "limitation",
       "title": "Runtime relationships are not observed",
       "detail": "The scanner does not instantiate scenes, execute scripts, or observe runtime-created nodes and resources."
     },
     {
-      "id": "truth-13",
+      "id": "truth-17",
       "kind": "limitation",
       "title": "The project was not run",
       "detail": "This scan cannot prove that the project imports, starts, builds, or behaves correctly."
     },
     {
-      "id": "truth-14",
+      "id": "truth-18",
       "kind": "limitation",
       "title": "Gameplay quality is outside this scan",
       "detail": "The scanner cannot determine fun, feel, pacing, balance, performance, or visual quality."
     },
     {
-      "id": "truth-15",
+      "id": "truth-19",
       "kind": "limitation",
       "title": "Generated metadata is intentionally skipped",
-      "detail": "0 .git, .godot, or .import directories were not traversed."
+      "detail": "0 .git, .godot, or .import directories were not traversed; the exact skipped descendant totals are not claimed."
     }
   ]
 }

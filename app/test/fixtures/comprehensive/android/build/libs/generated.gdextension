@@ -1,0 +1,5 @@
+[configuration]
+entry_symbol = "fixture_generated"
+
+[libraries]
+windows.x86_64 = "res://android/build/libs/generated.dll"

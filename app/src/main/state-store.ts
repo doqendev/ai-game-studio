@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { mkdir, readFile, rename, writeFile } from "node:fs/promises";
 import { basename, join } from "node:path";
-import type { NotesUpdate } from "../shared/contracts";
+import { NOTE_LIMITS, type NotesUpdate } from "../shared/contracts";
 
 interface StoredProject {
   id: string;
@@ -93,8 +93,8 @@ export class StateStore {
   public async saveNotes(canonicalPath: string, update: NotesUpdate): Promise<StoredProject> {
     const gameBrief = update.gameBrief.trim();
     const currentObjective = update.currentObjective.trim();
-    if (gameBrief.length > 5_000) throw new Error("GAME_BRIEF_TOO_LONG");
-    if (currentObjective.length > 2_000) throw new Error("CURRENT_OBJECTIVE_TOO_LONG");
+    if (gameBrief.length > NOTE_LIMITS.gameBrief) throw new Error("GAME_BRIEF_TOO_LONG");
+    if (currentObjective.length > NOTE_LIMITS.currentObjective) throw new Error("CURRENT_OBJECTIVE_TOO_LONG");
     const project = this.getProject(canonicalPath);
     project.gameBrief = gameBrief;
     project.currentObjective = currentObjective;

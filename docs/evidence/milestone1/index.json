@@ -1,45 +1,46 @@
 {
-  "schemaVersion": 1,
-  "milestone": "Milestone 1 - Read-Only Project Cockpit",
+  "schemaVersion": 2,
+  "milestone": "Corrected Milestone 1 - Read-Only Project Cockpit",
   "repositoryBranch": "internal-creator-prototype",
   "archivalBaseline": "9fe78b874f8eef72721c71db73337203ef9b1e8f",
+  "supersedesEvidenceAt": "81ac73e1bf435f14247fc40596f59205d26ecff7",
   "realProjectIntegrity": {
     "root": "E:\\doqendev\\GameDev\\bakery-sort",
     "beforeAndAfterMatch": true,
     "fileCount": 5928,
-    "totalBytes": 2682295957,
-    "treeSha256": "fc5114c819a8f9e5c090ecdcf2aa17bcd4335136c9674e3b7cac64c1829852ad"
+    "totalBytes": 2682293420,
+    "treeSha256": "5b72fca64e47268a94bf970a0c9a1a54ca570ae94612327d5c1f5601c0bb0bde"
   },
   "files": [
     {
       "path": "app-data-inventory.json",
-      "bytes": 980,
-      "sha256": "74a987857d92ae408d361e6f0e7fc2911356feadd8a8ec5dd340e31fe74ac84a"
+      "bytes": 1086,
+      "sha256": "6523a578f87f716bdf0fcc3723d2974979b23adad371559a955cd478296d0d34"
     },
     {
       "path": "controlled-fixture-scan.json",
-      "bytes": 8282,
-      "sha256": "5a2dc9a13e5cedeed2fda09f30ca9e9234d9f51531dc7e7ec4b57283fdf44997"
+      "bytes": 10908,
+      "sha256": "2e51aad5902c52e66755622ea9cbb6b381143a95e0de0b9fc29f03439153a18a"
     },
     {
       "path": "README.md",
-      "bytes": 5405,
-      "sha256": "fde5b397653a0a3c1665b3182e86f2bcae7af8c82b15676c3303eda172e39bf8"
+      "bytes": 7025,
+      "sha256": "739ded6754aa6900ea8bce81a8763919bf8b0cd4de5b95e24001dffbb7c83a64"
     },
     {
       "path": "real-project-after.json",
       "bytes": 298,
-      "sha256": "0e1b504cb854b9e24c0ee97950c8bd00cff6a6ede19644d0c6dc799ba5b5f835"
+      "sha256": "aa7ceb73774a4d50b70cd5685a49739603ffdd3b7d540ce4fa819941d62d86cd"
     },
     {
       "path": "real-project-before.json",
       "bytes": 298,
-      "sha256": "bd25d0d006e32ebf32331fc8f46193d302f71bbca38b4ffc0d38c63d9670e2af"
+      "sha256": "7a145dce9a97a80b244c0fdbb599d0e7070c1412e2a2af3ac8f88d96d8f9f50d"
     },
     {
       "path": "real-project-scan.json",
-      "bytes": 231603,
-      "sha256": "d4cc8e15ce9b3c9b798dbba6d7e8c8169bacf131c16be7a565b9d71359e4e88a"
+      "bytes": 131738,
+      "sha256": "db6480fe7336a7df8b2bcffbcad7609bfddd0da034a9139a7e0230733adeaeb0"
     },
     {
       "path": "screenshots/builds-controlled-fixture.png",
@@ -47,24 +48,29 @@
       "sha256": "d959ad46de1cd2b75553b34f5d595cdcddaf93b653ede42578bb6d469ba4dc99"
     },
     {
+      "path": "screenshots/project-bakery-sort.png",
+      "bytes": 121682,
+      "sha256": "f2018a1c5c7e05994c6c9e2cd81173612e5aa306d897bf6683ac538682795631"
+    },
+    {
       "path": "screenshots/project-controlled-fixture.png",
-      "bytes": 126006,
-      "sha256": "48ded1fccd59e9cb1bc2960526e955c3b90e2474f7df976425a89ae37fe8b463"
+      "bytes": 121908,
+      "sha256": "63f955ecfa3aec47eb1216d76ea1a1d0e12cd11e1726c0ab2d50b25808acc04c"
     },
     {
       "path": "screenshots/studio-bakery-sort.png",
-      "bytes": 90602,
-      "sha256": "5209bc7565fd021c883381e8483a968e75a6237ff14de7c1ccacfaf8a72ab69c"
+      "bytes": 95977,
+      "sha256": "73f0fb866b9d7b04f26621124dfe976aa45802a8c93eebf77170c73ddd039984"
     },
     {
       "path": "screenshots/studio-controlled-fixture.png",
-      "bytes": 91182,
-      "sha256": "07c70a4a1cd10df08fc4d216e62f594ee30645f1bb54dc5a92d9a04afb821e1f"
+      "bytes": 96457,
+      "sha256": "7e354cd73021ebe520097ad424b0daa537492d61f044e391f87bf913a45287a1"
     },
     {
       "path": "test-results.json",
-      "bytes": 1698,
-      "sha256": "a062083d69c8182fabb8c12726c23a7dc4bed9500fb689854c7fec282d04d053"
+      "bytes": 2523,
+      "sha256": "282e2ea0cef1f409dc7be238d6cc03e61b9ae8219c060fcaf1e765274e3a3153"
     }
   ]
 }

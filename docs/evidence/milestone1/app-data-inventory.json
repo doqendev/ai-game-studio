@@ -1,19 +1,23 @@
 {
-  "schemaVersion": 1,
-  "acceptanceRoot": "C:\\Users\\Marcos\\AppData\\Local\\AI Game Studio\\Milestone1Acceptance",
+  "schemaVersion": 2,
+  "acceptanceRoot": "C:\\Users\\Marcos\\AppData\\Local\\AI Game Studio\\Milestone1CorrectiveAcceptanceFinal",
+  "profiles": [
+    "controlled-fixture",
+    "owner-project"
+  ],
   "functionalStateFiles": [
     {
-      "path": "fixture\\studio-state.json",
-      "bytes": 512,
-      "sha256": "f6bc7a79b6195903237578b90c9e0884fe8fe7960f1bc3677b4657e34f250ad4"
+      "path": "controlled-fixture\\studio-state.json",
+      "bytes": 544,
+      "sha256": "eb276621abe3c4f0aa19adf525fe31f3f4dd7aae9bbcbb1000a50501c269e990"
     },
     {
-      "path": "bakery-sort\\studio-state.json",
-      "bytes": 490,
-      "sha256": "ed1ac15c1e142d957b7c5e2ee9a64539681b26c672f37ba22e36aef9d6559774"
+      "path": "owner-project\\studio-state.json",
+      "bytes": 491,
+      "sha256": "97fadb5cad6f5852faee91edd9530a9dd423e6bcf466a1603a828289c3c18c77"
     }
   ],
-  "electronOwnedTopLevelEntries": [
+  "electronOwnedEntriesWithinEachProfile": [
     "blob_storage",
     "Cache",
     "Code Cache",
@@ -29,5 +33,5 @@
     "Session Storage",
     "Shared Dictionary"
   ],
-  "note": "Electron creates the listed Chromium profile and cache entries. The application-owned product state is studio-state.json. No state file was written to either selected project."
+  "note": "Electron created the listed Chromium profile and cache entries. The application-owned product state is studio-state.json. No state file was written into either selected project."
 }

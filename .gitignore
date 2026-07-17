@@ -13,6 +13,10 @@ test-results/
 .vite/
 *.tsbuildinfo
 
+# Intentionally authored scanner fixture that models generated Godot Android output
+!app/test/fixtures/comprehensive/android/build/
+!app/test/fixtures/comprehensive/android/build/**
+
 # Godot generated state and review outputs
 .godot/
 .import/

@@ -3,13 +3,16 @@ import type { NotesUpdate, ProjectScanReport, ScanStatus, StudioSnapshot } from 
 import { ScanCancelledError, scanGodotProject, validateGodotProjectRoot } from "./scanner";
 import { StateStore } from "./state-store";
 
+export type ProjectScanner = (path: string, options: { signal: AbortSignal }) => Promise<ProjectScanReport>;
+
 export class StudioController {
   private selectedProjectPath: string | null = null;
   private scan: ProjectScanReport | null = null;
   private scanState: ScanStatus = "not-scanned";
   private scanAbortController: AbortController | null = null;
+  private scanGeneration = 0;
 
-  public constructor(private readonly store: StateStore) {}
+  public constructor(private readonly store: StateStore, private readonly scanProject: ProjectScanner = scanGodotProject) {}
 
   public async initialize(initialProjectPath: string | null): Promise<void> {
     await this.store.initialize();
@@ -25,7 +28,7 @@ export class StudioController {
   public async selectProject(path: string): Promise<StudioSnapshot> {
     const canonicalPath = await validateGodotProjectRoot(path);
     assertAppDataOutsideProject(canonicalPath, this.store.userDataRoot);
-    this.scanAbortController?.abort();
+    this.invalidateActiveScan();
     this.selectedProjectPath = canonicalPath;
     this.scan = null;
     this.scanState = "not-scanned";
@@ -72,7 +75,7 @@ export class StudioController {
 
   public async removeSelectedProjectTrust(): Promise<StudioSnapshot> {
     const selected = this.requireSelected();
-    this.scanAbortController?.abort();
+    this.invalidateActiveScan();
     await this.store.removeTrust(selected);
     this.scan = null;
     this.scanState = "not-scanned";
@@ -88,23 +91,24 @@ export class StudioController {
   public async rescan(): Promise<StudioSnapshot> {
     const selected = this.requireSelected();
     if (!this.store.getProject(selected).trustedAt) throw new Error("PROJECT_TRUST_REQUIRED");
-    this.scanAbortController?.abort();
+    const generation = this.invalidateActiveScan();
     const controller = new AbortController();
     this.scanAbortController = controller;
     this.scanState = "scanning";
     try {
-      const report = await scanGodotProject(selected, { signal: controller.signal });
-      if (this.scanAbortController !== controller) return this.snapshot();
+      const report = await this.scanProject(selected, { signal: controller.signal });
+      if (!this.isActiveScan(generation, controller)) return this.snapshot();
       this.scan = report;
       this.scanState = report.status;
     } catch (error) {
+      if (!this.isActiveScan(generation, controller)) return this.snapshot();
       if (error instanceof ScanCancelledError) this.scanState = "cancelled";
       else {
         this.scanState = "failed";
         throw error;
       }
     } finally {
-      if (this.scanAbortController === controller) this.scanAbortController = null;
+      if (this.isActiveScan(generation, controller)) this.scanAbortController = null;
     }
     return this.snapshot();
   }
@@ -118,6 +122,17 @@ export class StudioController {
   private requireSelected(): string {
     if (!this.selectedProjectPath) throw new Error("NO_PROJECT_SELECTED");
     return this.selectedProjectPath;
+  }
+
+  private invalidateActiveScan(): number {
+    this.scanGeneration += 1;
+    this.scanAbortController?.abort();
+    this.scanAbortController = null;
+    return this.scanGeneration;
+  }
+
+  private isActiveScan(generation: number, controller: AbortController): boolean {
+    return this.scanGeneration === generation && this.scanAbortController === controller;
   }
 }
 

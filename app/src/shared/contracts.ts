@@ -2,6 +2,15 @@ export type TruthKind = "confirmed" | "warning" | "heuristic" | "limitation";
 
 export type ScanStatus = "not-scanned" | "scanning" | "complete" | "partial" | "cancelled" | "failed";
 
+export type ContentOrigin = "project-source" | "tooling" | "generated-output" | "ignored-by-godot" | "unknown";
+
+export type MainSceneReferenceKind = "path" | "uid" | "unknown";
+
+export const NOTE_LIMITS = {
+  gameBrief: 5_000,
+  currentObjective: 2_000,
+} as const;
+
 export type FileGroupKey =
   | "scenes"
   | "scripts"
@@ -50,6 +59,7 @@ export interface AutoloadEntry {
 export interface MissingReference {
   sourcePath: string;
   referencedPath: string;
+  evidence: "static-load" | "structured-resource";
 }
 
 export interface ActiveContentEntry {
@@ -64,10 +74,29 @@ export interface ScanLimits {
   maximumTextReadBytes: number;
   largeFileBytes: number;
   maximumReportedItemsPerGroup: number;
+  maximumMissingReferences: number;
+}
+
+export interface OriginTotals {
+  files: number;
+  directories: number;
+  bytes: number;
+}
+
+export interface ClassifiedRoot extends OriginTotals {
+  path: string;
+  origin: Exclude<ContentOrigin, "project-source" | "unknown">;
+  reason: string;
+}
+
+export interface ExcludedRoot {
+  path: string;
+  origin: "tooling" | "generated-output";
+  reason: string;
 }
 
 export interface ProjectScanReport {
-  schemaVersion: 1;
+  schemaVersion: 2;
   projectRoot: string;
   projectName: string;
   status: Exclude<ScanStatus, "not-scanned" | "scanning">;
@@ -82,6 +111,7 @@ export interface ProjectScanReport {
     diagnostics: string[];
   };
   configuredMainScene: string | null;
+  configuredMainSceneKind: MainSceneReferenceKind | null;
   configuredMainSceneExists: boolean | null;
   totals: {
     files: number;
@@ -89,17 +119,22 @@ export interface ProjectScanReport {
     bytes: number;
     skippedGeneratedDirectories: number;
   };
+  origins: Record<ContentOrigin, OriginTotals>;
+  classifiedRoots: ClassifiedRoot[];
+  excludedRoots: ExcludedRoot[];
   groups: Record<FileGroupKey, FileCollection>;
   autoloads: AutoloadEntry[];
   inputActions: string[];
   displaySettings: NamedValue[];
   renderingSettings: NamedValue[];
   enabledPlugins: string[];
+  pluginDeclarations: FileCollection;
   gdExtensions: FileCollection;
   nativeLibraries: FileCollection;
   executables: FileCollection;
   activeContent: ActiveContentEntry[];
   missingReferences: MissingReference[];
+  missingReferencesTruncated: boolean;
   unreadableFiles: string[];
   largeFiles: FileCollection;
   unsupportedFiles: FileCollection;

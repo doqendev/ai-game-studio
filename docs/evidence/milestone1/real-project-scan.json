@@ -1,17 +1,18 @@
 {
-  "schemaVersion": 1,
+  "schemaVersion": 2,
   "projectRoot": "E:\\doqendev\\GameDev\\bakery-sort",
   "projectName": "Bakery Sort",
   "status": "complete",
-  "startedAt": "2026-07-17T09:59:30.152Z",
-  "completedAt": "2026-07-17T09:59:30.541Z",
-  "durationMs": 389,
+  "startedAt": "2026-07-17T12:54:26.518Z",
+  "completedAt": "2026-07-17T12:54:27.055Z",
+  "durationMs": 537,
   "limits": {
     "maximumFiles": 25000,
     "maximumDepth": 32,
     "maximumTextReadBytes": 2097152,
     "largeFileBytes": 8388608,
-    "maximumReportedItemsPerGroup": 300
+    "maximumReportedItemsPerGroup": 300,
+    "maximumMissingReferences": 1000
   },
   "projectGodot": {
     "exists": true,
@@ -20,22 +21,103 @@
     "diagnostics": []
   },
   "configuredMainScene": "scenes/main.tscn",
+  "configuredMainSceneKind": "path",
   "configuredMainSceneExists": true,
   "totals": {
     "files": 2928,
     "directories": 717,
-    "bytes": 2309506954,
+    "bytes": 2309504417,
     "skippedGeneratedDirectories": 6
   },
+  "origins": {
+    "project-source": {
+      "files": 1630,
+      "directories": 73,
+      "bytes": 1151110495
+    },
+    "tooling": {
+      "files": 1,
+      "directories": 1,
+      "bytes": 11
+    },
+    "generated-output": {
+      "files": 1294,
+      "directories": 642,
+      "bytes": 1158053566
+    },
+    "ignored-by-godot": {
+      "files": 3,
+      "directories": 1,
+      "bytes": 340345
+    },
+    "unknown": {
+      "files": 0,
+      "directories": 0,
+      "bytes": 0
+    }
+  },
+  "classifiedRoots": [
+    {
+      "path": "android",
+      "origin": "tooling",
+      "reason": "Godot Android tooling markers were observed (.build_version plus the generated Gradle root).",
+      "files": 1,
+      "directories": 1,
+      "bytes": 11
+    },
+    {
+      "path": "android/build",
+      "origin": "generated-output",
+      "reason": "The directory is the confirmed Godot Android Gradle output root and contains .gdignore, build.gradle, and gradlew.",
+      "files": 1294,
+      "directories": 642,
+      "bytes": 1158053566
+    },
+    {
+      "path": "art",
+      "origin": "ignored-by-godot",
+      "reason": "The directory contains .gdignore, so Godot excludes its descendants from the project filesystem.",
+      "files": 3,
+      "directories": 1,
+      "bytes": 340345
+    }
+  ],
+  "excludedRoots": [
+    {
+      "path": ".git",
+      "origin": "tooling",
+      "reason": "Git metadata is outside the project-source inventory."
+    },
+    {
+      "path": ".godot",
+      "origin": "generated-output",
+      "reason": "Generated Godot metadata is intentionally not traversed."
+    },
+    {
+      "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/.godot",
+      "origin": "generated-output",
+      "reason": "Generated Godot metadata is intentionally not traversed."
+    },
+    {
+      "path": "android/build/build/intermediates/compressed_assets/standardDebug/compressStandardDebugAssets/out/assets/.godot",
+      "origin": "generated-output",
+      "reason": "Generated Godot metadata is intentionally not traversed."
+    },
+    {
+      "path": "android/build/src/instrumented/assets/.godot",
+      "origin": "generated-output",
+      "reason": "Generated Godot metadata is intentionally not traversed."
+    },
+    {
+      "path": "android/build/src/main/assets/.godot",
+      "origin": "generated-output",
+      "reason": "Generated Godot metadata is intentionally not traversed."
+    }
+  ],
   "groups": {
     "scenes": {
-      "total": 4,
+      "total": 3,
       "items": [
-        {
-          "path": "android/build/src/instrumented/assets/main.tscn",
-          "extension": ".tscn",
-          "bytes": 1274
-        },
         {
           "path": "scenes/main.tscn",
           "extension": ".tscn",
@@ -55,37 +137,12 @@
       "truncated": false
     },
     "scripts": {
-      "total": 29,
+      "total": 24,
       "items": [
         {
           "path": "addons/GameAnalytics/export_plugin.gd",
           "extension": ".gd",
           "bytes": 1863
-        },
-        {
-          "path": "android/build/src/instrumented/assets/main.gd",
-          "extension": ".gd",
-          "bytes": 2936
-        },
-        {
-          "path": "android/build/src/instrumented/assets/test/android_plugin/signal_tests.gd",
-          "extension": ".gd",
-          "bytes": 2554
-        },
-        {
-          "path": "android/build/src/instrumented/assets/test/base_test.gd",
-          "extension": ".gd",
-          "bytes": 1243
-        },
-        {
-          "path": "android/build/src/instrumented/assets/test/file_access/file_access_tests.gd",
-          "extension": ".gd",
-          "bytes": 3345
-        },
-        {
-          "path": "android/build/src/instrumented/assets/test/javaclasswrapper/java_class_wrapper_tests.gd",
-          "extension": ".gd",
-          "bytes": 8458
         },
         {
           "path": "build/capture_board.gd",
@@ -206,7 +263,7 @@
       "truncated": false
     },
     "images": {
-      "total": 788,
+      "total": 787,
       "items": [
         {
           "path": ".qa/background_teal_dense/frame00000000.png",
@@ -2374,38 +2431,8 @@
       "truncated": false
     },
     "resources": {
-      "total": 9,
+      "total": 3,
       "items": [
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/assets/shaders/meta_backdrop_blur.gdshader",
-          "extension": ".gdshader",
-          "bytes": 1142
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/assets/shaders/meta_sun_rays.gdshader",
-          "extension": ".gdshader",
-          "bytes": 974
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/assets/shaders/meta_texture_blur.gdshader",
-          "extension": ".gdshader",
-          "bytes": 402
-        },
-        {
-          "path": "android/build/src/main/assets/assets/shaders/meta_backdrop_blur.gdshader",
-          "extension": ".gdshader",
-          "bytes": 1142
-        },
-        {
-          "path": "android/build/src/main/assets/assets/shaders/meta_sun_rays.gdshader",
-          "extension": ".gdshader",
-          "bytes": 974
-        },
-        {
-          "path": "android/build/src/main/assets/assets/shaders/meta_texture_blur.gdshader",
-          "extension": ".gdshader",
-          "bytes": 402
-        },
         {
           "path": "assets/shaders/meta_backdrop_blur.gdshader",
           "extension": ".gdshader",
@@ -2425,13 +2452,8 @@
       "truncated": false
     },
     "models": {
-      "total": 2,
+      "total": 1,
       "items": [
-        {
-          "path": "art/crates.blend",
-          "extension": ".blend",
-          "bytes": 169104
-        },
         {
           "path": "assets/shelves/shelf_3_painted.glb",
           "extension": ".glb",
@@ -2451,7 +2473,7 @@
       "truncated": false
     },
     "documents": {
-      "total": 510,
+      "total": 84,
       "items": [
         {
           "path": ".claude/settings.local.json",
@@ -2461,7 +2483,7 @@
         {
           "path": ".omc/project-memory.json",
           "extension": ".json",
-          "bytes": 6454
+          "bytes": 3917
         },
         {
           "path": ".omc/sessions/13cf8e2f-49a3-4253-b438-993a094592e9.json",
@@ -2502,1086 +2524,6 @@
           "path": "AGENTS.md",
           "extension": ".md",
           "bytes": 8893
-        },
-        {
-          "path": "android/build/build/intermediates/annotation_processor_list/standardDebug/javaPreCompileStandardDebug/annotationProcessors.json",
-          "extension": ".json",
-          "bytes": 2
-        },
-        {
-          "path": "android/build/build/intermediates/apk_ide_redirect_file/standardDebug/createStandardDebugApkListingFileRedirect/redirect.txt",
-          "extension": ".txt",
-          "bytes": 92
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_01.json",
-          "extension": ".json",
-          "bytes": 920
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_02.json",
-          "extension": ".json",
-          "bytes": 1201
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_03.json",
-          "extension": ".json",
-          "bytes": 1098
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_04.json",
-          "extension": ".json",
-          "bytes": 1545
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_05.json",
-          "extension": ".json",
-          "bytes": 1954
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_06.json",
-          "extension": ".json",
-          "bytes": 1341
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_07.json",
-          "extension": ".json",
-          "bytes": 1497
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_08.json",
-          "extension": ".json",
-          "bytes": 1352
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_09.json",
-          "extension": ".json",
-          "bytes": 1392
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_10.json",
-          "extension": ".json",
-          "bytes": 1394
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_11.json",
-          "extension": ".json",
-          "bytes": 1416
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_12.json",
-          "extension": ".json",
-          "bytes": 1555
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_13.json",
-          "extension": ".json",
-          "bytes": 1599
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_14.json",
-          "extension": ".json",
-          "bytes": 1856
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_15.json",
-          "extension": ".json",
-          "bytes": 2016
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_16.json",
-          "extension": ".json",
-          "bytes": 1888
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_17.json",
-          "extension": ".json",
-          "bytes": 2842
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_18.json",
-          "extension": ".json",
-          "bytes": 2838
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_19.json",
-          "extension": ".json",
-          "bytes": 2169
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_20.json",
-          "extension": ".json",
-          "bytes": 2787
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_21.json",
-          "extension": ".json",
-          "bytes": 1398
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_22.json",
-          "extension": ".json",
-          "bytes": 2116
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_23.json",
-          "extension": ".json",
-          "bytes": 1989
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_24.json",
-          "extension": ".json",
-          "bytes": 2266
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_25.json",
-          "extension": ".json",
-          "bytes": 2827
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_26.json",
-          "extension": ".json",
-          "bytes": 3205
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_27.json",
-          "extension": ".json",
-          "bytes": 2362
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_28.json",
-          "extension": ".json",
-          "bytes": 2317
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_29.json",
-          "extension": ".json",
-          "bytes": 3090
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/levels/level_30.json",
-          "extension": ".json",
-          "bytes": 3286
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/tools/fixtures/render_8rows.json",
-          "extension": ".json",
-          "bytes": 2067
-        },
-        {
-          "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/tools/solutions.json",
-          "extension": ".json",
-          "bytes": 28192
-        },
-        {
-          "path": "android/build/build/intermediates/compatible_screen_manifest/standardDebug/createStandardDebugCompatibleScreenManifests/output-metadata.json",
-          "extension": ".json",
-          "bytes": 207
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/mergeStandardDebugAssets/merger.xml",
-          "extension": ".xml",
-          "bytes": 66535
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/mergeStandardDebugJniLibFolders/merger.xml",
-          "extension": ".xml",
-          "bytes": 1293
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/mergeStandardDebugShaders/merger.xml",
-          "extension": ".xml",
-          "bytes": 910
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/packageStandardDebug/tmp/standardDebug/dex-renamer-state.txt",
-          "extension": ".txt",
-          "bytes": 604
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-af/values-af.xml",
-          "extension": ".xml",
-          "bytes": 2360
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-am/values-am.xml",
-          "extension": ".xml",
-          "bytes": 2784
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-ar/values-ar.xml",
-          "extension": ".xml",
-          "bytes": 2708
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-as/values-as.xml",
-          "extension": ".xml",
-          "bytes": 3152
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-az/values-az.xml",
-          "extension": ".xml",
-          "bytes": 2516
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-b+sr+Latn/values-b+sr+Latn.xml",
-          "extension": ".xml",
-          "bytes": 2357
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-be/values-be.xml",
-          "extension": ".xml",
-          "bytes": 2896
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-bg/values-bg.xml",
-          "extension": ".xml",
-          "bytes": 3087
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-bn/values-bn.xml",
-          "extension": ".xml",
-          "bytes": 3219
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-bs/values-bs.xml",
-          "extension": ".xml",
-          "bytes": 2379
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-ca/values-ca.xml",
-          "extension": ".xml",
-          "bytes": 2495
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-cs/values-cs.xml",
-          "extension": ".xml",
-          "bytes": 2548
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-da/values-da.xml",
-          "extension": ".xml",
-          "bytes": 2448
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-de/values-de.xml",
-          "extension": ".xml",
-          "bytes": 2590
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-el/values-el.xml",
-          "extension": ".xml",
-          "bytes": 3215
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-en-rAU/values-en-rAU.xml",
-          "extension": ".xml",
-          "bytes": 164
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-en-rCA/values-en-rCA.xml",
-          "extension": ".xml",
-          "bytes": 164
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-en-rGB/values-en-rGB.xml",
-          "extension": ".xml",
-          "bytes": 2323
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-en-rIN/values-en-rIN.xml",
-          "extension": ".xml",
-          "bytes": 164
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-en-rXC/values-en-rXC.xml",
-          "extension": ".xml",
-          "bytes": 473
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-en/values-en.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-es-rES/values-es-rES.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-es-rUS/values-es-rUS.xml",
-          "extension": ".xml",
-          "bytes": 2511
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-es/values-es.xml",
-          "extension": ".xml",
-          "bytes": 2580
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-et/values-et.xml",
-          "extension": ".xml",
-          "bytes": 2397
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-eu/values-eu.xml",
-          "extension": ".xml",
-          "bytes": 2439
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-fa/values-fa.xml",
-          "extension": ".xml",
-          "bytes": 2970
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-fi/values-fi.xml",
-          "extension": ".xml",
-          "bytes": 2426
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values-fr/values-fr.xml",
-          "extension": ".xml",
-          "bytes": 2659
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merged.dir/values/values.xml",
-          "extension": ".xml",
-          "bytes": 19136
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/mergeStandardDebugResources/merger.xml",
-          "extension": ".xml",
-          "bytes": 308468
-        },
-        {
-          "path": "android/build/build/intermediates/incremental/standardDebug/packageStandardDebugResources/merger.xml",
-          "extension": ".xml",
-          "bytes": 11960
-        },
-        {
-          "path": "android/build/build/intermediates/linked_resources_binary_format/standardDebug/processStandardDebugResources/output-metadata.json",
-          "extension": ".json",
-          "bytes": 445
-        },
-        {
-          "path": "android/build/build/intermediates/local_only_symbol_list/standardDebug/parseStandardDebugLocalResources/R-def.txt",
-          "extension": ".txt",
-          "bytes": 150
-        },
-        {
-          "path": "android/build/build/intermediates/manifest_merge_blame_file/standardDebug/processStandardDebugMainManifest/manifest-merger-blame-standard-debug-report.txt",
-          "extension": ".txt",
-          "bytes": 24004
-        },
-        {
-          "path": "android/build/build/intermediates/merged_manifest/standardDebug/processStandardDebugMainManifest/AndroidManifest.xml",
-          "extension": ".xml",
-          "bytes": 6188
-        },
-        {
-          "path": "android/build/build/intermediates/merged_manifests/standardDebug/processStandardDebugManifest/AndroidManifest.xml",
-          "extension": ".xml",
-          "bytes": 6188
-        },
-        {
-          "path": "android/build/build/intermediates/merged_manifests/standardDebug/processStandardDebugManifest/output-metadata.json",
-          "extension": ".json",
-          "bytes": 402
-        },
-        {
-          "path": "android/build/build/intermediates/navigation_json/standardDebug/extractDeepLinksStandardDebug/navigation.json",
-          "extension": ".json",
-          "bytes": 2
-        },
-        {
-          "path": "android/build/build/intermediates/nested_resources_validation_report/standardDebug/generateStandardDebugResources/nestedResourcesValidationReport.txt",
-          "extension": ".txt",
-          "bytes": 15
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_manifests/standardDebug/processStandardDebugManifestForPackage/AndroidManifest.xml",
-          "extension": ".xml",
-          "bytes": 6188
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_manifests/standardDebug/processStandardDebugManifestForPackage/output-metadata.json",
-          "extension": ".json",
-          "bytes": 404
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/mipmap-anydpi-v26/icon.xml",
-          "extension": ".xml",
-          "bytes": 252
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-ar/values-ar.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-bg/values-bg.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-ca/values-ca.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-cs/values-cs.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-da/values-da.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-de/values-de.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-el/values-el.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-en/values-en.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-es-rES/values-es-rES.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-es/values-es.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-fa/values-fa.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-fi/values-fi.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-fr/values-fr.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-hi/values-hi.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-hr/values-hr.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-hu/values-hu.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-in/values-in.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-it/values-it.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-iw/values-iw.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-ja/values-ja.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-ko/values-ko.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-lt/values-lt.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-lv/values-lv.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-nb/values-nb.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-nl/values-nl.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-pl/values-pl.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-pt/values-pt.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-ro/values-ro.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-ru/values-ru.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-sk/values-sk.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-sl/values-sl.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-sr/values-sr.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-sv/values-sv.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-th/values-th.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-tl/values-tl.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-tr/values-tr.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-uk/values-uk.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-vi/values-vi.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-zh-rHK/values-zh-rHK.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-zh-rTW/values-zh-rTW.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values-zh/values-zh.xml",
-          "extension": ".xml",
-          "bytes": 129
-        },
-        {
-          "path": "android/build/build/intermediates/packaged_res/standardDebug/packageStandardDebugResources/values/values.xml",
-          "extension": ".xml",
-          "bytes": 760
-        },
-        {
-          "path": "android/build/build/intermediates/runtime_symbol_list/standardDebug/processStandardDebugResources/R.txt",
-          "extension": ".txt",
-          "bytes": 17004
-        },
-        {
-          "path": "android/build/build/intermediates/signing_config_versions/standardDebug/writeStandardDebugSigningConfigVersions/signing-config-versions.json",
-          "extension": ".json",
-          "bytes": 96
-        },
-        {
-          "path": "android/build/build/intermediates/source_set_path_map/standardDebug/mapStandardDebugSourceSetPaths/file-map.txt",
-          "extension": ".txt",
-          "bytes": 4308
-        },
-        {
-          "path": "android/build/build/intermediates/stable_resource_ids_file/standardDebug/processStandardDebugResources/stableIds.txt",
-          "extension": ".txt",
-          "bytes": 20742
-        },
-        {
-          "path": "android/build/build/intermediates/symbol_list_with_package_name/standardDebug/processStandardDebugResources/package-aware-r.txt",
-          "extension": ".txt",
-          "bytes": 10541
-        },
-        {
-          "path": "android/build/build/outputs/apk/standard/debug/output-metadata.json",
-          "extension": ".json",
-          "bytes": 419
-        },
-        {
-          "path": "android/build/build/outputs/logs/manifest-merger-standard-debug-report.txt",
-          "extension": ".txt",
-          "bytes": 50757
-        },
-        {
-          "path": "android/build/libs/gdextensionlibs.json",
-          "extension": ".json",
-          "bytes": 72
-        },
-        {
-          "path": "android/build/res/mipmap-anydpi-v26/icon.xml",
-          "extension": ".xml",
-          "bytes": 252
-        },
-        {
-          "path": "android/build/res/values-ar/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-bg/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-ca/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-cs/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-da/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-de/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-el/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-en/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-es-rES/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-es/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-fa/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-fi/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-fr/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-hi/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-hr/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-hu/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-in/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-it/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-iw/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-ja/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-ko/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-lt/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-lv/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-nb/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-nl/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-pl/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-pt/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-ro/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-ru/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-sk/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-sl/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-sr/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-sv/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-th/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-tl/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-tr/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-uk/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-vi/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-zh-rHK/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-zh-rTW/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values-zh/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values/godot_project_name_string.xml",
-          "extension": ".xml",
-          "bytes": 187
-        },
-        {
-          "path": "android/build/res/values/themes.xml",
-          "extension": ".xml",
-          "bytes": 1084
-        },
-        {
-          "path": "android/build/src/debug/AndroidManifest.xml",
-          "extension": ".xml",
-          "bytes": 2334
-        },
-        {
-          "path": "android/build/src/instrumented/AndroidManifest.xml",
-          "extension": ".xml",
-          "bytes": 462
-        },
-        {
-          "path": "android/build/src/instrumented/res/values/strings.xml",
-          "extension": ".xml",
-          "bytes": 144
-        },
-        {
-          "path": "android/build/src/main/AndroidManifest.xml",
-          "extension": ".xml",
-          "bytes": 2160
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_01.json",
-          "extension": ".json",
-          "bytes": 920
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_02.json",
-          "extension": ".json",
-          "bytes": 1201
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_03.json",
-          "extension": ".json",
-          "bytes": 1098
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_04.json",
-          "extension": ".json",
-          "bytes": 1545
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_05.json",
-          "extension": ".json",
-          "bytes": 1954
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_06.json",
-          "extension": ".json",
-          "bytes": 1341
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_07.json",
-          "extension": ".json",
-          "bytes": 1497
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_08.json",
-          "extension": ".json",
-          "bytes": 1352
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_09.json",
-          "extension": ".json",
-          "bytes": 1392
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_10.json",
-          "extension": ".json",
-          "bytes": 1394
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_11.json",
-          "extension": ".json",
-          "bytes": 1416
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_12.json",
-          "extension": ".json",
-          "bytes": 1555
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_13.json",
-          "extension": ".json",
-          "bytes": 1599
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_14.json",
-          "extension": ".json",
-          "bytes": 1856
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_15.json",
-          "extension": ".json",
-          "bytes": 2016
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_16.json",
-          "extension": ".json",
-          "bytes": 1888
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_17.json",
-          "extension": ".json",
-          "bytes": 2842
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_18.json",
-          "extension": ".json",
-          "bytes": 2838
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_19.json",
-          "extension": ".json",
-          "bytes": 2169
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_20.json",
-          "extension": ".json",
-          "bytes": 2787
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_21.json",
-          "extension": ".json",
-          "bytes": 1398
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_22.json",
-          "extension": ".json",
-          "bytes": 2116
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_23.json",
-          "extension": ".json",
-          "bytes": 1989
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_24.json",
-          "extension": ".json",
-          "bytes": 2266
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_25.json",
-          "extension": ".json",
-          "bytes": 2827
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_26.json",
-          "extension": ".json",
-          "bytes": 3205
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_27.json",
-          "extension": ".json",
-          "bytes": 2362
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_28.json",
-          "extension": ".json",
-          "bytes": 2317
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_29.json",
-          "extension": ".json",
-          "bytes": 3090
-        },
-        {
-          "path": "android/build/src/main/assets/levels/level_30.json",
-          "extension": ".json",
-          "bytes": 3286
-        },
-        {
-          "path": "android/build/src/main/assets/tools/fixtures/render_8rows.json",
-          "extension": ".json",
-          "bytes": 2067
-        },
-        {
-          "path": "android/build/src/main/assets/tools/solutions.json",
-          "extension": ".json",
-          "bytes": 28192
-        },
-        {
-          "path": "android/build/src/main/assets/tools/solver/fixtures/conveyor.json",
-          "extension": ".json",
-          "bytes": 382
-        },
-        {
-          "path": "android/build/src/main/assets/tools/solver/fixtures/jam_undo.json",
-          "extension": ".json",
-          "bytes": 318
-        },
-        {
-          "path": "android/build/src/main/assets/tools/solver/fixtures/lock.json",
-          "extension": ".json",
-          "bytes": 507
-        },
-        {
-          "path": "android/build/src/main/assets/tools/solver/fixtures/trivial.json",
-          "extension": ".json",
-          "bytes": 309
         },
         {
           "path": "assets/fonts/OFL-Fredoka.txt",
@@ -3954,10 +2896,10 @@
           "bytes": 309
         }
       ],
-      "truncated": true
+      "truncated": false
     },
     "otherRecognised": {
-      "total": 848,
+      "total": 565,
       "items": [
         {
           "path": "addons/GameAnalytics/export_plugin.gd.uid",
@@ -5507,21 +4449,22 @@
   "enabledPlugins": [
     "addons/GameAnalytics/plugin.cfg"
   ],
+  "pluginDeclarations": {
+    "total": 1,
+    "items": [
+      {
+        "path": "addons/GameAnalytics/plugin.cfg",
+        "extension": ".cfg",
+        "bytes": 141
+      }
+    ],
+    "truncated": false
+  },
   "gdExtensions": {
-    "total": 3,
+    "total": 1,
     "items": [
       {
         "path": "addons/GameAnalytics/GameAnalytics.gdextension",
-        "extension": ".gdextension",
-        "bytes": 705
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/addons/GameAnalytics/GameAnalytics.gdextension",
-        "extension": ".gdextension",
-        "bytes": 705
-      },
-      {
-        "path": "android/build/src/main/assets/addons/GameAnalytics/GameAnalytics.gdextension",
         "extension": ".gdextension",
         "bytes": 705
       }
@@ -5529,7 +4472,7 @@
     "truncated": false
   },
   "nativeLibraries": {
-    "total": 22,
+    "total": 2,
     "items": [
       {
         "path": "addons/GameAnalytics/bin/android/libGodotGameAnalytics.so",
@@ -5540,123 +4483,13 @@
         "path": "addons/GameAnalytics/bin/windows/libGodotGameAnalytics-3.0.1.dll",
         "extension": ".dll",
         "bytes": 4052992
-      },
-      {
-        "path": "android/build/build/intermediates/merged_jni_libs/standardDebug/mergeStandardDebugJniLibFolders/out/arm64-v8a/libGodotGameAnalytics.so",
-        "extension": ".so",
-        "bytes": 848232
-      },
-      {
-        "path": "android/build/build/intermediates/merged_native_libs/standardDebug/mergeStandardDebugNativeLibs/out/lib/arm64-v8a/libc++_shared.so",
-        "extension": ".so",
-        "bytes": 1374336
-      },
-      {
-        "path": "android/build/build/intermediates/merged_native_libs/standardDebug/mergeStandardDebugNativeLibs/out/lib/arm64-v8a/libgodot_android.so",
-        "extension": ".so",
-        "bytes": 76217912
-      },
-      {
-        "path": "android/build/build/intermediates/merged_native_libs/standardDebug/mergeStandardDebugNativeLibs/out/lib/arm64-v8a/libGodotGameAnalytics.so",
-        "extension": ".so",
-        "bytes": 848232
-      },
-      {
-        "path": "android/build/build/intermediates/merged_native_libs/standardDebug/mergeStandardDebugNativeLibs/out/lib/armeabi-v7a/libc++_shared.so",
-        "extension": ".so",
-        "bytes": 963028
-      },
-      {
-        "path": "android/build/build/intermediates/merged_native_libs/standardDebug/mergeStandardDebugNativeLibs/out/lib/armeabi-v7a/libgodot_android.so",
-        "extension": ".so",
-        "bytes": 82459992
-      },
-      {
-        "path": "android/build/build/intermediates/merged_native_libs/standardDebug/mergeStandardDebugNativeLibs/out/lib/x86_64/libc++_shared.so",
-        "extension": ".so",
-        "bytes": 1337488
-      },
-      {
-        "path": "android/build/build/intermediates/merged_native_libs/standardDebug/mergeStandardDebugNativeLibs/out/lib/x86_64/libgodot_android.so",
-        "extension": ".so",
-        "bytes": 81167720
-      },
-      {
-        "path": "android/build/build/intermediates/merged_native_libs/standardDebug/mergeStandardDebugNativeLibs/out/lib/x86/libc++_shared.so",
-        "extension": ".so",
-        "bytes": 1255932
-      },
-      {
-        "path": "android/build/build/intermediates/merged_native_libs/standardDebug/mergeStandardDebugNativeLibs/out/lib/x86/libgodot_android.so",
-        "extension": ".so",
-        "bytes": 90957988
-      },
-      {
-        "path": "android/build/build/intermediates/stripped_native_libs/standardDebug/stripStandardDebugDebugSymbols/out/lib/arm64-v8a/libc++_shared.so",
-        "extension": ".so",
-        "bytes": 1374336
-      },
-      {
-        "path": "android/build/build/intermediates/stripped_native_libs/standardDebug/stripStandardDebugDebugSymbols/out/lib/arm64-v8a/libgodot_android.so",
-        "extension": ".so",
-        "bytes": 76217912
-      },
-      {
-        "path": "android/build/build/intermediates/stripped_native_libs/standardDebug/stripStandardDebugDebugSymbols/out/lib/arm64-v8a/libGodotGameAnalytics.so",
-        "extension": ".so",
-        "bytes": 848232
-      },
-      {
-        "path": "android/build/build/intermediates/stripped_native_libs/standardDebug/stripStandardDebugDebugSymbols/out/lib/armeabi-v7a/libc++_shared.so",
-        "extension": ".so",
-        "bytes": 963028
-      },
-      {
-        "path": "android/build/build/intermediates/stripped_native_libs/standardDebug/stripStandardDebugDebugSymbols/out/lib/armeabi-v7a/libgodot_android.so",
-        "extension": ".so",
-        "bytes": 82459992
-      },
-      {
-        "path": "android/build/build/intermediates/stripped_native_libs/standardDebug/stripStandardDebugDebugSymbols/out/lib/x86_64/libc++_shared.so",
-        "extension": ".so",
-        "bytes": 1337488
-      },
-      {
-        "path": "android/build/build/intermediates/stripped_native_libs/standardDebug/stripStandardDebugDebugSymbols/out/lib/x86_64/libgodot_android.so",
-        "extension": ".so",
-        "bytes": 81167720
-      },
-      {
-        "path": "android/build/build/intermediates/stripped_native_libs/standardDebug/stripStandardDebugDebugSymbols/out/lib/x86/libc++_shared.so",
-        "extension": ".so",
-        "bytes": 1255932
-      },
-      {
-        "path": "android/build/build/intermediates/stripped_native_libs/standardDebug/stripStandardDebugDebugSymbols/out/lib/x86/libgodot_android.so",
-        "extension": ".so",
-        "bytes": 90957988
-      },
-      {
-        "path": "android/build/libs/debug/arm64-v8a/libGodotGameAnalytics.so",
-        "extension": ".so",
-        "bytes": 848232
       }
     ],
     "truncated": false
   },
   "executables": {
-    "total": 6,
+    "total": 4,
     "items": [
-      {
-        "path": "android/build/build/outputs/apk/standard/debug/android_debug.apk",
-        "extension": ".apk",
-        "bytes": 134328496
-      },
-      {
-        "path": "android/build/gradlew.bat",
-        "extension": ".bat",
-        "bytes": 2763
-      },
       {
         "path": "build/analytics-foundation-debug.apk",
         "extension": ".apk",
@@ -5685,131 +4518,14 @@
       "path": "addons/GameAnalytics/export_plugin.gd",
       "capability": "Editor-executed script",
       "evidence": "Contains @tool"
-    },
-    {
-      "path": "addons/GameAnalytics/plugin.cfg",
-      "capability": "Editor plugin declaration",
-      "evidence": "A plugin.cfg file exists"
     }
   ],
-  "missingReferences": [
-    {
-      "sourcePath": "addons/GameAnalytics/export_plugin.gd",
-      "referencedPath": "addons/GameAnalytics/web/GameAnalytics.js"
-    },
-    {
-      "sourcePath": "android/build/src/instrumented/assets/main.tscn",
-      "referencedPath": "main.gd"
-    },
-    {
-      "sourcePath": "android/build/src/instrumented/assets/project.godot",
-      "referencedPath": "icon.svg"
-    },
-    {
-      "sourcePath": "android/build/src/instrumented/assets/project.godot",
-      "referencedPath": "main.tscn"
-    },
-    {
-      "sourcePath": "build/capture_board.gd",
-      "referencedPath": "build/board_capture.png"
-    },
-    {
-      "sourcePath": "build/capture_juice_state.gd",
-      "referencedPath": "build/juice_state.png"
-    },
-    {
-      "sourcePath": "scripts/asset_library.gd",
-      "referencedPath": "assets"
-    },
-    {
-      "sourcePath": "scripts/asset_library.gd",
-      "referencedPath": "assets/audio/%s.ogg"
-    },
-    {
-      "sourcePath": "scripts/asset_library.gd",
-      "referencedPath": "assets/items/%s.png"
-    },
-    {
-      "sourcePath": "scripts/ui/meta_shell.gd",
-      "referencedPath": "assets/ui/%s"
-    },
-    {
-      "sourcePath": "tools/gen_placeholder_items.gd",
-      "referencedPath": "assets/items/%s.png"
-    },
-    {
-      "sourcePath": "tools/match_v2_capture.gd",
-      "referencedPath": "levels/level_%02d.json"
-    },
-    {
-      "sourcePath": "tools/smoke_test.gd",
-      "referencedPath": "levels"
-    }
-  ],
+  "missingReferences": [],
+  "missingReferencesTruncated": false,
   "unreadableFiles": [],
   "largeFiles": {
-    "total": 17,
+    "total": 5,
     "items": [
-      {
-        "path": "android/build/build/intermediates/merged_jni_libs/standardDebug/mergeStandardDebugJniLibFolders/out/godot-lib.template_debug.aar",
-        "extension": ".aar",
-        "bytes": 112626544
-      },
-      {
-        "path": "android/build/build/intermediates/merged_native_libs/standardDebug/mergeStandardDebugNativeLibs/out/lib/arm64-v8a/libgodot_android.so",
-        "extension": ".so",
-        "bytes": 76217912
-      },
-      {
-        "path": "android/build/build/intermediates/merged_native_libs/standardDebug/mergeStandardDebugNativeLibs/out/lib/armeabi-v7a/libgodot_android.so",
-        "extension": ".so",
-        "bytes": 82459992
-      },
-      {
-        "path": "android/build/build/intermediates/merged_native_libs/standardDebug/mergeStandardDebugNativeLibs/out/lib/x86_64/libgodot_android.so",
-        "extension": ".so",
-        "bytes": 81167720
-      },
-      {
-        "path": "android/build/build/intermediates/merged_native_libs/standardDebug/mergeStandardDebugNativeLibs/out/lib/x86/libgodot_android.so",
-        "extension": ".so",
-        "bytes": 90957988
-      },
-      {
-        "path": "android/build/build/intermediates/stripped_native_libs/standardDebug/stripStandardDebugDebugSymbols/out/lib/arm64-v8a/libgodot_android.so",
-        "extension": ".so",
-        "bytes": 76217912
-      },
-      {
-        "path": "android/build/build/intermediates/stripped_native_libs/standardDebug/stripStandardDebugDebugSymbols/out/lib/armeabi-v7a/libgodot_android.so",
-        "extension": ".so",
-        "bytes": 82459992
-      },
-      {
-        "path": "android/build/build/intermediates/stripped_native_libs/standardDebug/stripStandardDebugDebugSymbols/out/lib/x86_64/libgodot_android.so",
-        "extension": ".so",
-        "bytes": 81167720
-      },
-      {
-        "path": "android/build/build/intermediates/stripped_native_libs/standardDebug/stripStandardDebugDebugSymbols/out/lib/x86/libgodot_android.so",
-        "extension": ".so",
-        "bytes": 90957988
-      },
-      {
-        "path": "android/build/build/outputs/apk/standard/debug/android_debug.apk",
-        "extension": ".apk",
-        "bytes": 134328496
-      },
-      {
-        "path": "android/build/libs/debug/godot-lib.template_debug.aar",
-        "extension": ".aar",
-        "bytes": 112626544
-      },
-      {
-        "path": "android/build/libs/release/godot-lib.template_release.aar",
-        "extension": ".aar",
-        "bytes": 103137689
-      },
       {
         "path": "build/analytics-foundation-debug.apk",
         "extension": ".apk",
@@ -5839,7 +4555,7 @@
     "truncated": false
   },
   "unsupportedFiles": {
-    "total": 312,
+    "total": 25,
     "items": [
       {
         "path": ".gitignore",
@@ -5875,1381 +4591,6 @@
         "path": "addons/GameAnalytics/LICENSE",
         "extension": "(none)",
         "bytes": 1070
-      },
-      {
-        "path": "android/.build_version",
-        "extension": "(none)",
-        "bytes": 11
-      },
-      {
-        "path": "android/build/.gdignore",
-        "extension": "(none)",
-        "bytes": 1
-      },
-      {
-        "path": "android/build/.gradle/8.11.1/checksums/checksums.lock",
-        "extension": ".lock",
-        "bytes": 17
-      },
-      {
-        "path": "android/build/.gradle/8.11.1/checksums/md5-checksums.bin",
-        "extension": ".bin",
-        "bytes": 23647
-      },
-      {
-        "path": "android/build/.gradle/8.11.1/checksums/sha1-checksums.bin",
-        "extension": ".bin",
-        "bytes": 32429
-      },
-      {
-        "path": "android/build/.gradle/8.11.1/executionHistory/executionHistory.bin",
-        "extension": ".bin",
-        "bytes": 2509655
-      },
-      {
-        "path": "android/build/.gradle/8.11.1/executionHistory/executionHistory.lock",
-        "extension": ".lock",
-        "bytes": 17
-      },
-      {
-        "path": "android/build/.gradle/8.11.1/fileChanges/last-build.bin",
-        "extension": ".bin",
-        "bytes": 1
-      },
-      {
-        "path": "android/build/.gradle/8.11.1/fileHashes/fileHashes.bin",
-        "extension": ".bin",
-        "bytes": 150683
-      },
-      {
-        "path": "android/build/.gradle/8.11.1/fileHashes/fileHashes.lock",
-        "extension": ".lock",
-        "bytes": 17
-      },
-      {
-        "path": "android/build/.gradle/8.11.1/fileHashes/resourceHashesCache.bin",
-        "extension": ".bin",
-        "bytes": 18803
-      },
-      {
-        "path": "android/build/.gradle/buildOutputCleanup/buildOutputCleanup.lock",
-        "extension": ".lock",
-        "bytes": 17
-      },
-      {
-        "path": "android/build/.gradle/buildOutputCleanup/outputFiles.bin",
-        "extension": ".bin",
-        "bytes": 22547
-      },
-      {
-        "path": "android/build/.gradle/file-system.probe",
-        "extension": ".probe",
-        "bytes": 8
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/_cl_",
-        "extension": "(none)",
-        "bytes": 94
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/addons/GameAnalytics/export_plugin.gd.remap",
-        "extension": ".remap",
-        "bytes": 61
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/addons/GameAnalytics/export_plugin.gdc",
-        "extension": ".gdc",
-        "bytes": 1590
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/assets.sparsepck",
-        "extension": ".sparsepck",
-        "bytes": 32252
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/project.binary",
-        "extension": ".binary",
-        "bytes": 996
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scenes/main.tscn.remap",
-        "extension": ".remap",
-        "bytes": 97
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scenes/ui/meta_shell.tscn.remap",
-        "extension": ".remap",
-        "bytes": 103
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scenes/ui/puzzle_hud.tscn.remap",
-        "extension": ".remap",
-        "bytes": 103
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scripts/asset_library.gd.remap",
-        "extension": ".remap",
-        "bytes": 48
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scripts/asset_library.gdc",
-        "extension": ".gdc",
-        "bytes": 2184
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scripts/game_config.gd.remap",
-        "extension": ".remap",
-        "bytes": 46
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scripts/game_config.gdc",
-        "extension": ".gdc",
-        "bytes": 14723
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scripts/game/board.gd.remap",
-        "extension": ".remap",
-        "bytes": 45
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scripts/game/board.gdc",
-        "extension": ".gdc",
-        "bytes": 39100
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scripts/game/juice_controller.gd.remap",
-        "extension": ".remap",
-        "bytes": 56
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scripts/game/juice_controller.gdc",
-        "extension": ".gdc",
-        "bytes": 20020
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scripts/game/level_loader.gd.remap",
-        "extension": ".remap",
-        "bytes": 52
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scripts/game/level_loader.gdc",
-        "extension": ".gdc",
-        "bytes": 3142
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scripts/main.gd.remap",
-        "extension": ".remap",
-        "bytes": 39
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scripts/main.gdc",
-        "extension": ".gdc",
-        "bytes": 25687
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scripts/services/analytics_service.gd.remap",
-        "extension": ".remap",
-        "bytes": 61
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scripts/services/analytics_service.gdc",
-        "extension": ".gdc",
-        "bytes": 7023
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scripts/ui/meta_ambience.gd.remap",
-        "extension": ".remap",
-        "bytes": 51
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scripts/ui/meta_ambience.gdc",
-        "extension": ".gdc",
-        "bytes": 9094
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scripts/ui/meta_draw.gd.remap",
-        "extension": ".remap",
-        "bytes": 47
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scripts/ui/meta_draw.gdc",
-        "extension": ".gdc",
-        "bytes": 5182
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scripts/ui/meta_shell.gd.remap",
-        "extension": ".remap",
-        "bytes": 48
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scripts/ui/meta_shell.gdc",
-        "extension": ".gdc",
-        "bytes": 48840
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scripts/ui/meta_ui.gd.remap",
-        "extension": ".remap",
-        "bytes": 45
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scripts/ui/meta_ui.gdc",
-        "extension": ".gdc",
-        "bytes": 7545
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scripts/ui/puzzle_hud.gd.remap",
-        "extension": ".remap",
-        "bytes": 48
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/scripts/ui/puzzle_hud.gdc",
-        "extension": ".gdc",
-        "bytes": 17030
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/tools/drop_qol_test.gd.remap",
-        "extension": ".remap",
-        "bytes": 46
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/tools/drop_qol_test.gdc",
-        "extension": ".gdc",
-        "bytes": 3135
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/tools/gen_placeholder_items.gd.remap",
-        "extension": ".remap",
-        "bytes": 54
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/tools/gen_placeholder_items.gdc",
-        "extension": ".gdc",
-        "bytes": 929
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/tools/match_v2_capture.gd.remap",
-        "extension": ".remap",
-        "bytes": 49
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/tools/match_v2_capture.gdc",
-        "extension": ".gdc",
-        "bytes": 1342
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/tools/match_v2_runtime_test.gd.remap",
-        "extension": ".remap",
-        "bytes": 54
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/tools/match_v2_runtime_test.gdc",
-        "extension": ".gdc",
-        "bytes": 2362
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/tools/meta_capture.gd.remap",
-        "extension": ".remap",
-        "bytes": 45
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/tools/meta_capture.gdc",
-        "extension": ".gdc",
-        "bytes": 1507
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/tools/placement_probe.gd.remap",
-        "extension": ".remap",
-        "bytes": 48
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/tools/placement_probe.gdc",
-        "extension": ".gdc",
-        "bytes": 1640
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/tools/puzzle_hud_test.gd.remap",
-        "extension": ".remap",
-        "bytes": 48
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/tools/puzzle_hud_test.gdc",
-        "extension": ".gdc",
-        "bytes": 2715
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/tools/size_capture.gd.remap",
-        "extension": ".remap",
-        "bytes": 45
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/tools/size_capture.gdc",
-        "extension": ".gdc",
-        "bytes": 1054
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/tools/smoke_test.gd.remap",
-        "extension": ".remap",
-        "bytes": 43
-      },
-      {
-        "path": "android/build/build/intermediates/assets/standardDebug/mergeStandardDebugAssets/tools/smoke_test.gdc",
-        "extension": ".gdc",
-        "bytes": 3860
-      },
-      {
-        "path": "android/build/build/intermediates/desugar_graph/standardDebug/dexBuilderStandardDebug/out/currentProject/dirs_bucket_0/graph.bin",
-        "extension": ".bin",
-        "bytes": 235
-      },
-      {
-        "path": "android/build/build/intermediates/desugar_graph/standardDebug/dexBuilderStandardDebug/out/currentProject/dirs_bucket_1/graph.bin",
-        "extension": ".bin",
-        "bytes": 235
-      },
-      {
-        "path": "android/build/build/intermediates/desugar_graph/standardDebug/dexBuilderStandardDebug/out/currentProject/dirs_bucket_2/graph.bin",
-        "extension": ".bin",
-        "bytes": 235
-      },
-      {
-        "path": "android/build/build/intermediates/desugar_graph/standardDebug/dexBuilderStandardDebug/out/currentProject/dirs_bucket_3/graph.bin",
-        "extension": ".bin",
-        "bytes": 235
-      },
-      {
-        "path": "android/build/build/intermediates/desugar_graph/standardDebug/dexBuilderStandardDebug/out/currentProject/dirs_bucket_4/graph.bin",
-        "extension": ".bin",
-        "bytes": 235
-      },
-      {
-        "path": "android/build/build/intermediates/desugar_graph/standardDebug/dexBuilderStandardDebug/out/currentProject/dirs_bucket_5/graph.bin",
-        "extension": ".bin",
-        "bytes": 235
-      },
-      {
-        "path": "android/build/build/intermediates/desugar_graph/standardDebug/dexBuilderStandardDebug/out/currentProject/dirs_bucket_6/graph.bin",
-        "extension": ".bin",
-        "bytes": 235
-      },
-      {
-        "path": "android/build/build/intermediates/desugar_graph/standardDebug/dexBuilderStandardDebug/out/currentProject/dirs_bucket_7/graph.bin",
-        "extension": ".bin",
-        "bytes": 235
-      },
-      {
-        "path": "android/build/build/intermediates/dex_archive_input_jar_hashes/standardDebug/dexBuilderStandardDebug/out",
-        "extension": "(none)",
-        "bytes": 429
-      },
-      {
-        "path": "android/build/build/intermediates/dex_number_of_buckets_file/standardDebug/dexBuilderStandardDebug/out",
-        "extension": "(none)",
-        "bytes": 1
-      },
-      {
-        "path": "android/build/build/intermediates/dex/standardDebug/mergeExtDexStandardDebug/classes.dex",
-        "extension": ".dex",
-        "bytes": 6850304
-      },
-      {
-        "path": "android/build/build/intermediates/dex/standardDebug/mergeProjectDexStandardDebug/0/classes.dex",
-        "extension": ".dex",
-        "bytes": 55712
-      },
-      {
-        "path": "android/build/build/intermediates/dex/standardDebug/mergeProjectDexStandardDebug/6/classes.dex",
-        "extension": ".dex",
-        "bytes": 4356
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/packageStandardDebug/tmp/standardDebug/zip-cache/androidResources",
-        "extension": "(none)",
-        "bytes": 10953
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/packageStandardDebug/tmp/standardDebug/zip-cache/javaResources0",
-        "extension": "(none)",
-        "bytes": 3580
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/merge-state",
-        "extension": "(none)",
-        "bytes": 9611
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/+1pU3ESxA_b9YHarOvx963WVeHw=",
-        "extension": "(none)",
-        "bytes": 9612
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/05cuzR+oyFUf77pg98idpKrxOXE=",
-        "extension": "(none)",
-        "bytes": 43273
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/05t7MuMtgC8bBeaADEZeZJ+9ZXY=",
-        "extension": "(none)",
-        "bytes": 173358
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/25cC7n7Ax4B13IdWA0uw5bbDmNo=",
-        "extension": "(none)",
-        "bytes": 55298
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/6bq3y332WonW4z8lUpOrLVHoLWQ=",
-        "extension": "(none)",
-        "bytes": 205288
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/7Pu16sGjGwMu28WYdalm8RJU94U=",
-        "extension": "(none)",
-        "bytes": 3149
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/C9Vovy1HKfFJimnCst_cSGVHxjY=",
-        "extension": "(none)",
-        "bytes": 18379
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/CaAJCJSeZ4mSZf1VQ5loAHPz3S4=",
-        "extension": "(none)",
-        "bytes": 19520
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/CDgioycF0axnK6QtPOLxYo8b4Rw=",
-        "extension": "(none)",
-        "bytes": 52314
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/Cr_KcuQye5PeZ6sjWOtRWNBpSqs=",
-        "extension": "(none)",
-        "bytes": 47517
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/CwOz97lboQPHJ0D54_Kpqoz8jGQ=",
-        "extension": "(none)",
-        "bytes": 17536
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/DlaPfw94rnRHYXxtKU8m50VbPVc=",
-        "extension": "(none)",
-        "bytes": 1105841
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/e+2B0aHkhBZon41aXZB1sQf_DrY=",
-        "extension": "(none)",
-        "bytes": 33627
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/EBsK41SxWyCBWbEXLMwLcdZ8BWw=",
-        "extension": "(none)",
-        "bytes": 25987
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/EplNzgOKNO4zJvpxjgbc5q_G9sI=",
-        "extension": "(none)",
-        "bytes": 4220
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/ErItHXTKkXO4BT0uRJvVUY_SUKQ=",
-        "extension": "(none)",
-        "bytes": 12398
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/Fa+70FeYZBIzGu7rornVYdXGTZc=",
-        "extension": "(none)",
-        "bytes": 333302
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/fK5+rBoonzlqaqZq_mFT6MJ2VLY=",
-        "extension": "(none)",
-        "bytes": 28409
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/gj6TDxc9V_fZEF0TTbn+15kc+Rg=",
-        "extension": "(none)",
-        "bytes": 6788
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/gvMcH3bZHAf47lC9hNGD0U4DfLM=",
-        "extension": "(none)",
-        "bytes": 6270
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/gVmEz4vftmmuL0xxCqAycTPfz_Y=",
-        "extension": "(none)",
-        "bytes": 56126
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/HoN5Gh4z8Cb8PjEOxWRgRguMDSE=",
-        "extension": "(none)",
-        "bytes": 173075
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/IHzzgMfzx9uQ_YmDCoWC9kJ8EYo=",
-        "extension": "(none)",
-        "bytes": 11657
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/jaXfvPveAt6Bo1I6EmT6Mvy_GKo=",
-        "extension": "(none)",
-        "bytes": 968
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/KcXLIt25uPZHYMGJY+g_tk3nWII=",
-        "extension": "(none)",
-        "bytes": 6304
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/lOaHP9GxN6z6F1MNhU7CR08Kga4=",
-        "extension": "(none)",
-        "bytes": 346606
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/LR61jcvpVI_Yn+30PjU0megwWbk=",
-        "extension": "(none)",
-        "bytes": 341560
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/ltRsmyDtg7F1KMoealgZ7peTE3A=",
-        "extension": "(none)",
-        "bytes": 31906
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/NoH02LaiAe_htTaPTMn4VuauGDg=",
-        "extension": "(none)",
-        "bytes": 41698
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/pkDLbpCSf8_Y_Er5vRdLG1EwF6A=",
-        "extension": "(none)",
-        "bytes": 1178
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/PRs+7LpjRs6nKacXZzfskc1Bp54=",
-        "extension": "(none)",
-        "bytes": 963
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/qoOjBftmQK8Elqr1jAhBQONkIrU=",
-        "extension": "(none)",
-        "bytes": 42953
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/ryWdaeYH67x2YhQcoeD827zOBn8=",
-        "extension": "(none)",
-        "bytes": 19555
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/ScPl947NySUNJ17zS_k5bU5ozeE=",
-        "extension": "(none)",
-        "bytes": 20559
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/TLuORQ8g2h9A1C+tk5xxHV_gpZ4=",
-        "extension": "(none)",
-        "bytes": 3696
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/To+lg4See7ZrPGybtQEa697kDEg=",
-        "extension": "(none)",
-        "bytes": 3819
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/u6iTlEhtQ+f+lhxbrABP3gm8WIE=",
-        "extension": "(none)",
-        "bytes": 35177
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/UlxbLJtZAj09oBBzoGZ_SFZibOA=",
-        "extension": "(none)",
-        "bytes": 466730
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/UU3G0AjU1Tsa6Jxek9kzIG6V8_g=",
-        "extension": "(none)",
-        "bytes": 1724058
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/XShmQQLTWTu7sBmB0qez3oAggck=",
-        "extension": "(none)",
-        "bytes": 42302
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/yM6t_To7QsdLFwyZoW2DjOQuMa8=",
-        "extension": "(none)",
-        "bytes": 1476653
-      },
-      {
-        "path": "android/build/build/intermediates/incremental/standardDebug-mergeJavaRes/zip-cache/zB494S3KsPHcujLnyjLXOVlCl8E=",
-        "extension": "(none)",
-        "bytes": 40157
-      },
-      {
-        "path": "android/build/build/intermediates/linked_resources_binary_format/standardDebug/processStandardDebugResources/linked-resources-binary-format-standardDebug.ap_",
-        "extension": ".ap_",
-        "bytes": 300097
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/mipmap-anydpi-v26_icon.xml.flat",
-        "extension": ".flat",
-        "bytes": 420
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values_values.arsc.flat",
-        "extension": ".flat",
-        "bytes": 20260
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-af_values-af.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2204
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-am_values-am.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2648
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-ar_values-ar.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2556
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-as_values-as.arsc.flat",
-        "extension": ".flat",
-        "bytes": 3028
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-az_values-az.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2364
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-b+sr+Latn_values-b+sr+Latn.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2316
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-be_values-be.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2768
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-bg_values-bg.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2960
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-bn_values-bn.arsc.flat",
-        "extension": ".flat",
-        "bytes": 3104
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-bs_values-bs.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2228
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-ca_values-ca.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2332
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-cs_values-cs.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2396
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-da_values-da.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2292
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-de_values-de.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2436
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-el_values-el.arsc.flat",
-        "extension": ".flat",
-        "bytes": 3092
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-en_values-en.arsc.flat",
-        "extension": ".flat",
-        "bytes": 256
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-en-rAU_values-en-rAU.arsc.flat",
-        "extension": ".flat",
-        "bytes": 272
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-en-rCA_values-en-rCA.arsc.flat",
-        "extension": ".flat",
-        "bytes": 272
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-en-rGB_values-en-rGB.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2228
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-en-rIN_values-en-rIN.arsc.flat",
-        "extension": ".flat",
-        "bytes": 272
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-en-rXC_values-en-rXC.arsc.flat",
-        "extension": ".flat",
-        "bytes": 588
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-es_values-es.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2428
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-es-rES_values-es-rES.arsc.flat",
-        "extension": ".flat",
-        "bytes": 268
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-es-rUS_values-es-rUS.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2428
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-et_values-et.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2244
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-eu_values-eu.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2288
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-fa_values-fa.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2840
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-fi_values-fi.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2268
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-fr_values-fr.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2504
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-fr-rCA_values-fr-rCA.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2508
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-gl_values-gl.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2304
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-gu_values-gu.arsc.flat",
-        "extension": ".flat",
-        "bytes": 3080
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-hi_values-hi.arsc.flat",
-        "extension": ".flat",
-        "bytes": 3272
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-hr_values-hr.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2284
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-hu_values-hu.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2596
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-hy_values-hy.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2948
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-in_values-in.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2276
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-is_values-is.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2220
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-it_values-it.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2304
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-iw_values-iw.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2512
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-ja_values-ja.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2688
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-ka_values-ka.arsc.flat",
-        "extension": ".flat",
-        "bytes": 3076
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-kk_values-kk.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2760
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-km_values-km.arsc.flat",
-        "extension": ".flat",
-        "bytes": 3396
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-kn_values-kn.arsc.flat",
-        "extension": ".flat",
-        "bytes": 3340
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-ko_values-ko.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2468
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-ky_values-ky.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2736
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-lo_values-lo.arsc.flat",
-        "extension": ".flat",
-        "bytes": 3460
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-lt_values-lt.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2448
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-lv_values-lv.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2436
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-mk_values-mk.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2764
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-ml_values-ml.arsc.flat",
-        "extension": ".flat",
-        "bytes": 3720
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-mn_values-mn.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2752
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-mr_values-mr.arsc.flat",
-        "extension": ".flat",
-        "bytes": 3068
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-ms_values-ms.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2368
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-my_values-my.arsc.flat",
-        "extension": ".flat",
-        "bytes": 3760
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-nb_values-nb.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2308
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-ne_values-ne.arsc.flat",
-        "extension": ".flat",
-        "bytes": 3468
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-night-v8_values-night-v8.arsc.flat",
-        "extension": ".flat",
-        "bytes": 304
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-nl_values-nl.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2380
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-or_values-or.arsc.flat",
-        "extension": ".flat",
-        "bytes": 3424
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-pa_values-pa.arsc.flat",
-        "extension": ".flat",
-        "bytes": 3320
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-pl_values-pl.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2384
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-pt_values-pt.arsc.flat",
-        "extension": ".flat",
-        "bytes": 328
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-pt-rBR_values-pt-rBR.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2356
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-pt-rPT_values-pt-rPT.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2452
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-ro_values-ro.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2372
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-ru_values-ru.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2896
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-si_values-si.arsc.flat",
-        "extension": ".flat",
-        "bytes": 3140
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-sk_values-sk.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2412
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-sl_values-sl.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2308
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-sq_values-sq.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2388
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-sr_values-sr.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2696
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-sv_values-sv.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2312
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-sw_values-sw.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2272
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-ta_values-ta.arsc.flat",
-        "extension": ".flat",
-        "bytes": 3316
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-te_values-te.arsc.flat",
-        "extension": ".flat",
-        "bytes": 3168
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-th_values-th.arsc.flat",
-        "extension": ".flat",
-        "bytes": 3164
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-tl_values-tl.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2436
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-tr_values-tr.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2372
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-uk_values-uk.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2820
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-ur_values-ur.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2752
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-uz_values-uz.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2264
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-v16_values-v16.arsc.flat",
-        "extension": ".flat",
-        "bytes": 260
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-v21_values-v21.arsc.flat",
-        "extension": ".flat",
-        "bytes": 1524
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-v27_values-v27.arsc.flat",
-        "extension": ".flat",
-        "bytes": 756
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-v29_values-v29.arsc.flat",
-        "extension": ".flat",
-        "bytes": 608
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-v31_values-v31.arsc.flat",
-        "extension": ".flat",
-        "bytes": 836
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-vi_values-vi.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2568
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-watch-v20_values-watch-v20.arsc.flat",
-        "extension": ".flat",
-        "bytes": 804
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-zh_values-zh.arsc.flat",
-        "extension": ".flat",
-        "bytes": 256
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-zh-rCN_values-zh-rCN.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2208
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-zh-rHK_values-zh-rHK.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2308
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-zh-rTW_values-zh-rTW.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2288
-      },
-      {
-        "path": "android/build/build/intermediates/merged_res/standardDebug/mergeStandardDebugResources/values-zu_values-zu.arsc.flat",
-        "extension": ".flat",
-        "bytes": 2296
-      },
-      {
-        "path": "android/build/build/reports/problems/problems-report.html",
-        "extension": ".html",
-        "bytes": 125636
-      },
-      {
-        "path": "android/build/build/tmp/compileStandardDebugJavaWithJavac/previous-compilation-data.bin",
-        "extension": ".bin",
-        "bytes": 51684
-      },
-      {
-        "path": "android/build/gradlew",
-        "extension": "(none)",
-        "bytes": 5766
-      },
-      {
-        "path": "android/build/src/main/assets/_cl_",
-        "extension": "(none)",
-        "bytes": 94
-      },
-      {
-        "path": "android/build/src/main/assets/addons/GameAnalytics/export_plugin.gd.remap",
-        "extension": ".remap",
-        "bytes": 61
-      },
-      {
-        "path": "android/build/src/main/assets/addons/GameAnalytics/export_plugin.gdc",
-        "extension": ".gdc",
-        "bytes": 1590
-      },
-      {
-        "path": "android/build/src/main/assets/assets.sparsepck",
-        "extension": ".sparsepck",
-        "bytes": 32252
-      },
-      {
-        "path": "android/build/src/main/assets/project.binary",
-        "extension": ".binary",
-        "bytes": 996
-      },
-      {
-        "path": "android/build/src/main/assets/scenes/main.tscn.remap",
-        "extension": ".remap",
-        "bytes": 97
-      },
-      {
-        "path": "android/build/src/main/assets/scenes/ui/meta_shell.tscn.remap",
-        "extension": ".remap",
-        "bytes": 103
-      },
-      {
-        "path": "android/build/src/main/assets/scenes/ui/puzzle_hud.tscn.remap",
-        "extension": ".remap",
-        "bytes": 103
-      },
-      {
-        "path": "android/build/src/main/assets/scripts/asset_library.gd.remap",
-        "extension": ".remap",
-        "bytes": 48
-      },
-      {
-        "path": "android/build/src/main/assets/scripts/asset_library.gdc",
-        "extension": ".gdc",
-        "bytes": 2184
-      },
-      {
-        "path": "android/build/src/main/assets/scripts/game_config.gd.remap",
-        "extension": ".remap",
-        "bytes": 46
-      },
-      {
-        "path": "android/build/src/main/assets/scripts/game_config.gdc",
-        "extension": ".gdc",
-        "bytes": 14723
-      },
-      {
-        "path": "android/build/src/main/assets/scripts/game/board.gd.remap",
-        "extension": ".remap",
-        "bytes": 45
-      },
-      {
-        "path": "android/build/src/main/assets/scripts/game/board.gdc",
-        "extension": ".gdc",
-        "bytes": 39100
-      },
-      {
-        "path": "android/build/src/main/assets/scripts/game/juice_controller.gd.remap",
-        "extension": ".remap",
-        "bytes": 56
-      },
-      {
-        "path": "android/build/src/main/assets/scripts/game/juice_controller.gdc",
-        "extension": ".gdc",
-        "bytes": 20020
-      },
-      {
-        "path": "android/build/src/main/assets/scripts/game/level_loader.gd.remap",
-        "extension": ".remap",
-        "bytes": 52
-      },
-      {
-        "path": "android/build/src/main/assets/scripts/game/level_loader.gdc",
-        "extension": ".gdc",
-        "bytes": 3142
-      },
-      {
-        "path": "android/build/src/main/assets/scripts/main.gd.remap",
-        "extension": ".remap",
-        "bytes": 39
-      },
-      {
-        "path": "android/build/src/main/assets/scripts/main.gdc",
-        "extension": ".gdc",
-        "bytes": 25687
-      },
-      {
-        "path": "android/build/src/main/assets/scripts/services/analytics_service.gd.remap",
-        "extension": ".remap",
-        "bytes": 61
-      },
-      {
-        "path": "android/build/src/main/assets/scripts/services/analytics_service.gdc",
-        "extension": ".gdc",
-        "bytes": 7023
-      },
-      {
-        "path": "android/build/src/main/assets/scripts/ui/meta_ambience.gd.remap",
-        "extension": ".remap",
-        "bytes": 51
-      },
-      {
-        "path": "android/build/src/main/assets/scripts/ui/meta_ambience.gdc",
-        "extension": ".gdc",
-        "bytes": 9094
-      },
-      {
-        "path": "android/build/src/main/assets/scripts/ui/meta_draw.gd.remap",
-        "extension": ".remap",
-        "bytes": 47
-      },
-      {
-        "path": "android/build/src/main/assets/scripts/ui/meta_draw.gdc",
-        "extension": ".gdc",
-        "bytes": 5182
-      },
-      {
-        "path": "android/build/src/main/assets/scripts/ui/meta_shell.gd.remap",
-        "extension": ".remap",
-        "bytes": 48
-      },
-      {
-        "path": "android/build/src/main/assets/scripts/ui/meta_shell.gdc",
-        "extension": ".gdc",
-        "bytes": 48840
-      },
-      {
-        "path": "android/build/src/main/assets/scripts/ui/meta_ui.gd.remap",
-        "extension": ".remap",
-        "bytes": 45
-      },
-      {
-        "path": "android/build/src/main/assets/scripts/ui/meta_ui.gdc",
-        "extension": ".gdc",
-        "bytes": 7545
-      },
-      {
-        "path": "android/build/src/main/assets/scripts/ui/puzzle_hud.gd.remap",
-        "extension": ".remap",
-        "bytes": 48
-      },
-      {
-        "path": "android/build/src/main/assets/scripts/ui/puzzle_hud.gdc",
-        "extension": ".gdc",
-        "bytes": 17030
-      },
-      {
-        "path": "android/build/src/main/assets/tools/drop_qol_test.gd.remap",
-        "extension": ".remap",
-        "bytes": 46
-      },
-      {
-        "path": "android/build/src/main/assets/tools/drop_qol_test.gdc",
-        "extension": ".gdc",
-        "bytes": 3135
-      },
-      {
-        "path": "android/build/src/main/assets/tools/gen_placeholder_items.gd.remap",
-        "extension": ".remap",
-        "bytes": 54
-      },
-      {
-        "path": "android/build/src/main/assets/tools/gen_placeholder_items.gdc",
-        "extension": ".gdc",
-        "bytes": 929
-      },
-      {
-        "path": "android/build/src/main/assets/tools/match_v2_capture.gd.remap",
-        "extension": ".remap",
-        "bytes": 49
-      },
-      {
-        "path": "android/build/src/main/assets/tools/match_v2_capture.gdc",
-        "extension": ".gdc",
-        "bytes": 1342
-      },
-      {
-        "path": "android/build/src/main/assets/tools/match_v2_runtime_test.gd.remap",
-        "extension": ".remap",
-        "bytes": 54
-      },
-      {
-        "path": "android/build/src/main/assets/tools/match_v2_runtime_test.gdc",
-        "extension": ".gdc",
-        "bytes": 2362
-      },
-      {
-        "path": "android/build/src/main/assets/tools/meta_capture.gd.remap",
-        "extension": ".remap",
-        "bytes": 45
-      },
-      {
-        "path": "android/build/src/main/assets/tools/meta_capture.gdc",
-        "extension": ".gdc",
-        "bytes": 1507
-      },
-      {
-        "path": "android/build/src/main/assets/tools/placement_probe.gd.remap",
-        "extension": ".remap",
-        "bytes": 48
-      },
-      {
-        "path": "android/build/src/main/assets/tools/placement_probe.gdc",
-        "extension": ".gdc",
-        "bytes": 1640
-      },
-      {
-        "path": "android/build/src/main/assets/tools/puzzle_hud_test.gd.remap",
-        "extension": ".remap",
-        "bytes": 48
-      },
-      {
-        "path": "android/build/src/main/assets/tools/puzzle_hud_test.gdc",
-        "extension": ".gdc",
-        "bytes": 2715
-      },
-      {
-        "path": "android/build/src/main/assets/tools/size_capture.gd.remap",
-        "extension": ".remap",
-        "bytes": 45
-      },
-      {
-        "path": "android/build/src/main/assets/tools/size_capture.gdc",
-        "extension": ".gdc",
-        "bytes": 1054
-      },
-      {
-        "path": "android/build/src/main/assets/tools/smoke_test.gd.remap",
-        "extension": ".remap",
-        "bytes": 43
-      },
-      {
-        "path": "android/build/src/main/assets/tools/smoke_test.gdc",
-        "extension": ".gdc",
-        "bytes": 3860
-      },
-      {
-        "path": "art/.gdignore",
-        "extension": "(none)",
-        "bytes": 0
-      },
-      {
-        "path": "art/crates.blend1",
-        "extension": ".blend1",
-        "bytes": 171241
       },
       {
         "path": "assets/bg/.gitkeep",
@@ -7342,7 +4683,7 @@
         "bytes": 21932
       }
     ],
-    "truncated": true
+    "truncated": false
   },
   "reparsePoints": [],
   "truth": [
@@ -7356,99 +4697,117 @@
     {
       "id": "truth-2",
       "kind": "confirmed",
-      "title": "Read-only file inventory completed",
-      "detail": "2,928 regular files and 717 directories were observed without executing project code."
+      "title": "Read-only inventory completed",
+      "detail": "2,928 regular files were observed: 1,630 project-source, 1 tooling, 1,294 generated/output, and 3 ignored by Godot."
     },
     {
       "id": "truth-3",
       "kind": "confirmed",
       "title": "Configured main scene found",
-      "detail": "scenes/main.tscn exists in the observed file inventory.",
+      "detail": "scenes/main.tscn exists in the project-source inventory.",
       "path": "scenes/main.tscn"
     },
     {
       "id": "truth-4",
+      "kind": "confirmed",
+      "title": "Tooling content separated",
+      "detail": "1 file(s) were classified as tooling rather than project source."
+    },
+    {
+      "id": "truth-5",
+      "kind": "confirmed",
+      "title": "Generated/output content separated",
+      "detail": "1,294 file(s) were kept in the observed totals but excluded from source-level inventory and capability counts."
+    },
+    {
+      "id": "truth-6",
+      "kind": "confirmed",
+      "title": "Godot-ignored content separated",
+      "detail": "3 file(s) beneath .gdignore boundaries were kept in observed totals but excluded from project source."
+    },
+    {
+      "id": "truth-7",
       "kind": "warning",
       "title": "Enabled editor plugin detected",
       "detail": "1 plugin path(s) are enabled in project.godot. Plugin code can execute in the Godot editor."
     },
     {
-      "id": "truth-5",
-      "kind": "warning",
-      "title": "GDExtension declaration detected",
-      "detail": "3 .gdextension declaration(s) were observed. Native code may be loaded by the project."
-    },
-    {
-      "id": "truth-6",
-      "kind": "warning",
-      "title": "Native library content detected",
-      "detail": "22 native-library file(s) were observed."
-    },
-    {
-      "id": "truth-7",
-      "kind": "warning",
-      "title": "Executable content detected",
-      "detail": "6 executable or command file(s) were observed."
-    },
-    {
       "id": "truth-8",
-      "kind": "warning",
-      "title": "Active project capabilities detected",
-      "detail": "2 editor, process, network, or command capability marker(s) were observed in supported text files."
+      "kind": "confirmed",
+      "title": "Editor plugin declarations observed",
+      "detail": "1 plugin.cfg declaration(s) exist in project source. A declaration alone does not establish that a plugin is enabled."
     },
     {
       "id": "truth-9",
       "kind": "warning",
-      "title": "Local resource references appear to be missing",
-      "detail": "13 directly quoted res:// reference(s) did not match the observed inventory."
+      "title": "GDExtension declaration detected",
+      "detail": "1 .gdextension declaration(s) were observed. Native code may be loaded by the project."
     },
     {
       "id": "truth-10",
       "kind": "warning",
-      "title": "Large files detected",
-      "detail": "17 file(s) are at least 8 MiB."
+      "title": "Native library content detected",
+      "detail": "2 native-library file(s) were observed."
     },
     {
       "id": "truth-11",
       "kind": "warning",
-      "title": "Unsupported file types detected",
-      "detail": "312 file(s) use extensions the scanner does not interpret."
+      "title": "Executable content detected",
+      "detail": "4 executable or command file(s) were observed."
     },
     {
       "id": "truth-12",
-      "kind": "limitation",
-      "title": "Dynamic loading may be invisible",
-      "detail": "Resources assembled from strings or loaded only at runtime may not appear in the reference check."
+      "kind": "warning",
+      "title": "Active project capabilities detected",
+      "detail": "1 editor, process, network, or command capability marker(s) were observed in supported text files."
     },
     {
       "id": "truth-13",
+      "kind": "warning",
+      "title": "Large files detected",
+      "detail": "5 file(s) are at least 8 MiB."
+    },
+    {
+      "id": "truth-14",
+      "kind": "warning",
+      "title": "Unsupported file types detected",
+      "detail": "25 file(s) use extensions the scanner does not interpret."
+    },
+    {
+      "id": "truth-15",
+      "kind": "limitation",
+      "title": "Dynamic and nondependency paths are not missing-file findings",
+      "detail": "Formatted templates, directory literals, output targets, arbitrary quoted res:// strings, and resources assembled at runtime are not treated as confirmed missing dependencies."
+    },
+    {
+      "id": "truth-16",
       "kind": "limitation",
       "title": "Runtime relationships are not observed",
       "detail": "The scanner does not instantiate scenes, execute scripts, or observe runtime-created nodes and resources."
     },
     {
-      "id": "truth-14",
+      "id": "truth-17",
       "kind": "limitation",
       "title": "The project was not run",
       "detail": "This scan cannot prove that the project imports, starts, builds, or behaves correctly."
     },
     {
-      "id": "truth-15",
+      "id": "truth-18",
       "kind": "limitation",
       "title": "Gameplay quality is outside this scan",
       "detail": "The scanner cannot determine fun, feel, pacing, balance, performance, or visual quality."
     },
     {
-      "id": "truth-16",
+      "id": "truth-19",
       "kind": "limitation",
       "title": "Generated metadata is intentionally skipped",
-      "detail": "6 .git, .godot, or .import directories were not traversed."
+      "detail": "6 .git, .godot, or .import directories were not traversed; the exact skipped descendant totals are not claimed."
     },
     {
-      "id": "truth-17",
+      "id": "truth-20",
       "kind": "limitation",
       "title": "Some displayed lists are truncated",
-      "detail": "Each category displays at most 300 paths, while category totals remain exact within the scan limits."
+      "detail": "Each category displays at most 300 paths. Totals remain exact within scan limits, but UI filtering searches only the displayed subset."
     }
   ]
 }

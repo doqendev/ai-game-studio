@@ -2,8 +2,8 @@ import { defineConfig } from "@playwright/test";
 
 export default defineConfig({
   testDir: "./acceptance",
-  testMatch: ["cockpit.spec.ts"],
-  outputDir: "./test-results",
+  testMatch: ["owner-evidence.spec.ts"],
+  outputDir: "./test-results/owner-evidence",
   reporter: [["line"]],
   workers: 1,
   timeout: 60_000,

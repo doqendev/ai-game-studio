@@ -2,11 +2,16 @@ import { lstat, readdir, readFile, realpath } from "node:fs/promises";
 import { basename, extname, isAbsolute, join, relative, resolve, sep } from "node:path";
 import type {
   ActiveContentEntry,
+  ClassifiedRoot,
+  ContentOrigin,
+  ExcludedRoot,
   FileCollection,
   FileEntry,
   FileGroupKey,
+  MainSceneReferenceKind,
   MissingReference,
   NamedValue,
+  OriginTotals,
   ProjectScanReport,
   ScanLimits,
   TruthItem,
@@ -18,9 +23,10 @@ const DEFAULT_LIMITS: ScanLimits = {
   maximumTextReadBytes: 2 * 1024 * 1024,
   largeFileBytes: 8 * 1024 * 1024,
   maximumReportedItemsPerGroup: 300,
+  maximumMissingReferences: 1_000,
 };
 
-const IGNORED_GENERATED_DIRECTORIES = new Set([".git", ".godot", ".import"]);
+const EXCLUDED_METADATA_DIRECTORIES = new Set([".git", ".godot", ".import"]);
 
 const GROUP_EXTENSIONS: Record<FileGroupKey, Set<string>> = {
   scenes: new Set([".tscn", ".scn"]),
@@ -111,7 +117,14 @@ export interface ParsedGodotConfig {
 interface TextCandidate {
   absolutePath: string;
   relativePath: string;
-  bytes: number;
+}
+
+interface DirectoryCandidate {
+  absolutePath: string;
+  relativePath: string;
+  depth: number;
+  origin: ContentOrigin;
+  classifiedRootIndex: number | null;
 }
 
 export class ScanCancelledError extends Error {
@@ -152,24 +165,30 @@ export async function scanGodotProject(selectedPath: string, options: ScannerOpt
   if (!rootIdentity.isDirectory() || rootIdentity.isSymbolicLink()) throw new Error("PROJECT_ROOT_NOT_REGULAR_DIRECTORY");
 
   const groups = makeGroups();
+  const pluginDeclarations = makeCollection();
   const gdExtensions = makeCollection();
   const nativeLibraries = makeCollection();
   const executables = makeCollection();
   const largeFiles = makeCollection();
   const unsupportedFiles = makeCollection();
   const textCandidates: TextCandidate[] = [];
-  const allRelativeFiles = new Set<string>();
+  const projectSourceFiles = new Set<string>();
   const reparsePoints: string[] = [];
   const unreadableFiles: string[] = [];
   const activeContent: ActiveContentEntry[] = [];
   const missingReferences: MissingReference[] = [];
+  const missingReferenceKeys = new Set<string>();
   const truth: TruthItem[] = [];
   const diagnostics: string[] = [];
+  const origins = makeOriginTotals();
+  const classifiedRoots: ClassifiedRoot[] = [];
+  const excludedRoots: ExcludedRoot[] = [];
   let visitedFiles = 0;
   let visitedDirectories = 0;
   let totalBytes = 0;
   let skippedGeneratedDirectories = 0;
   let scanWasLimited = false;
+  let missingReferencesTruncated = false;
   let reportSequence = 0;
 
   const projectGodotPath = join(canonicalRoot, "project.godot");
@@ -191,15 +210,31 @@ export async function scanGodotProject(selectedPath: string, options: ScannerOpt
     if (projectGodotExists) unreadableFiles.push("project.godot");
   }
 
-  const queue: Array<{ absolutePath: string; relativePath: string; depth: number }> = [
-    { absolutePath: canonicalRoot, relativePath: "", depth: 0 },
+  const hasConfirmedAndroidTooling = await isConfirmedAndroidToolingRoot(canonicalRoot);
+  const queue: DirectoryCandidate[] = [
+    { absolutePath: canonicalRoot, relativePath: "", depth: 0, origin: "project-source", classifiedRootIndex: null },
   ];
 
   scanLoop: while (queue.length > 0) {
     ensureNotCancelled(options.signal);
     const directory = queue.shift();
     if (!directory) break;
+    let directoryOrigin = directory.origin;
+    let classifiedRootIndex = directory.classifiedRootIndex;
+    if (directoryOrigin === "project-source" && directory.relativePath && await hasRegularNoFollowFile(join(directory.absolutePath, ".gdignore"))) {
+      directoryOrigin = "ignored-by-godot";
+      classifiedRootIndex = classifiedRoots.push({
+        path: directory.relativePath,
+        origin: "ignored-by-godot",
+        reason: "The directory contains .gdignore, so Godot excludes its descendants from the project filesystem.",
+        files: 0,
+        directories: 0,
+        bytes: 0,
+      }) - 1;
+    }
     visitedDirectories += 1;
+    origins[directoryOrigin].directories += 1;
+    if (classifiedRootIndex !== null) classifiedRoots[classifiedRootIndex]!.directories += 1;
     let entries;
     try {
       entries = await readdir(directory.absolutePath, { withFileTypes: true });
@@ -230,8 +265,13 @@ export async function scanGodotProject(selectedPath: string, options: ScannerOpt
         continue;
       }
       if (identity.isDirectory()) {
-        if (IGNORED_GENERATED_DIRECTORIES.has(entry.name)) {
+        if (EXCLUDED_METADATA_DIRECTORIES.has(entry.name)) {
           skippedGeneratedDirectories += 1;
+          excludedRoots.push({
+            path: relativePath,
+            origin: entry.name === ".git" ? "tooling" : "generated-output",
+            reason: entry.name === ".git" ? "Git metadata is outside the project-source inventory." : "Generated Godot metadata is intentionally not traversed.",
+          });
           continue;
         }
         if (directory.depth >= limits.maximumDepth) {
@@ -239,7 +279,30 @@ export async function scanGodotProject(selectedPath: string, options: ScannerOpt
           addTruth("warning", "Directory depth limit reached", `The scanner did not enter ${relativePath} because the ${limits.maximumDepth}-level limit was reached.`, relativePath);
           continue;
         }
-        queue.push({ absolutePath, relativePath, depth: directory.depth + 1 });
+        let childOrigin = directoryOrigin;
+        let childClassifiedRootIndex = classifiedRootIndex;
+        if (relativePath.toLowerCase() === "android" && hasConfirmedAndroidTooling) {
+          childOrigin = "tooling";
+          childClassifiedRootIndex = classifiedRoots.push({
+            path: relativePath,
+            origin: "tooling",
+            reason: "Godot Android tooling markers were observed (.build_version plus the generated Gradle root).",
+            files: 0,
+            directories: 0,
+            bytes: 0,
+          }) - 1;
+        } else if (relativePath.toLowerCase() === "android/build" && hasConfirmedAndroidTooling) {
+          childOrigin = "generated-output";
+          childClassifiedRootIndex = classifiedRoots.push({
+            path: relativePath,
+            origin: "generated-output",
+            reason: "The directory is the confirmed Godot Android Gradle output root and contains .gdignore, build.gradle, and gradlew.",
+            files: 0,
+            directories: 0,
+            bytes: 0,
+          }) - 1;
+        }
+        queue.push({ absolutePath, relativePath, depth: directory.depth + 1, origin: childOrigin, classifiedRootIndex: childClassifiedRootIndex });
         continue;
       }
       if (!identity.isFile()) {
@@ -248,32 +311,39 @@ export async function scanGodotProject(selectedPath: string, options: ScannerOpt
         continue;
       }
 
-      visitedFiles += 1;
-      if (visitedFiles > limits.maximumFiles) {
+      if (visitedFiles >= limits.maximumFiles) {
         scanWasLimited = true;
         addTruth("warning", "File-count limit reached", `The scan stopped after ${limits.maximumFiles.toLocaleString()} files.`, relativePath);
         break scanLoop;
       }
+      visitedFiles += 1;
       await options.onVisit?.(relativePath, visitedFiles);
       totalBytes += identity.size;
+      origins[directoryOrigin].files += 1;
+      origins[directoryOrigin].bytes += identity.size;
+      if (classifiedRootIndex !== null) {
+        classifiedRoots[classifiedRootIndex]!.files += 1;
+        classifiedRoots[classifiedRootIndex]!.bytes += identity.size;
+      }
       const extension = extname(entry.name).toLowerCase();
       const fileEntry: FileEntry = { path: relativePath, extension: extension || "(none)", bytes: identity.size };
-      allRelativeFiles.add(relativePath.toLowerCase());
-
-      const group = groupForExtension(extension);
-      if (group) addToCollection(groups[group], fileEntry, limits.maximumReportedItemsPerGroup);
-      if (extension === ".gdextension") addToCollection(gdExtensions, fileEntry, limits.maximumReportedItemsPerGroup);
-      if (NATIVE_LIBRARY_EXTENSIONS.has(extension)) addToCollection(nativeLibraries, fileEntry, limits.maximumReportedItemsPerGroup);
-      if (EXECUTABLE_EXTENSIONS.has(extension)) addToCollection(executables, fileEntry, limits.maximumReportedItemsPerGroup);
-      if (identity.size >= limits.largeFileBytes) addToCollection(largeFiles, fileEntry, limits.maximumReportedItemsPerGroup);
-      if (!KNOWN_EXTENSIONS.has(extension) && basename(relativePath).toLowerCase() !== "project.godot") {
-        addToCollection(unsupportedFiles, fileEntry, limits.maximumReportedItemsPerGroup);
-      }
-      if (TEXT_EXTENSIONS.has(extension) && identity.size <= limits.maximumTextReadBytes) {
-        textCandidates.push({ absolutePath, relativePath, bytes: identity.size });
-      }
-      if (relativePath.toLowerCase().endsWith("/plugin.cfg") || relativePath.toLowerCase() === "plugin.cfg") {
-        activeContent.push({ path: relativePath, capability: "Editor plugin declaration", evidence: "A plugin.cfg file exists" });
+      if (directoryOrigin === "project-source") {
+        projectSourceFiles.add(relativePath.toLowerCase());
+        const group = groupForExtension(extension);
+        if (group) addToCollection(groups[group], fileEntry, limits.maximumReportedItemsPerGroup);
+        if (extension === ".gdextension") addToCollection(gdExtensions, fileEntry, limits.maximumReportedItemsPerGroup);
+        if (NATIVE_LIBRARY_EXTENSIONS.has(extension)) addToCollection(nativeLibraries, fileEntry, limits.maximumReportedItemsPerGroup);
+        if (EXECUTABLE_EXTENSIONS.has(extension)) addToCollection(executables, fileEntry, limits.maximumReportedItemsPerGroup);
+        if (identity.size >= limits.largeFileBytes) addToCollection(largeFiles, fileEntry, limits.maximumReportedItemsPerGroup);
+        if (!KNOWN_EXTENSIONS.has(extension) && basename(relativePath).toLowerCase() !== "project.godot") {
+          addToCollection(unsupportedFiles, fileEntry, limits.maximumReportedItemsPerGroup);
+        }
+        if (TEXT_EXTENSIONS.has(extension) && identity.size <= limits.maximumTextReadBytes) {
+          textCandidates.push({ absolutePath, relativePath });
+        }
+        if (relativePath.toLowerCase().endsWith("/plugin.cfg") || relativePath.toLowerCase() === "plugin.cfg") {
+          addToCollection(pluginDeclarations, fileEntry, limits.maximumReportedItemsPerGroup);
+        }
       }
 
       if (visitedFiles % 100 === 0) await new Promise<void>((resolveYield) => setImmediate(resolveYield));
@@ -291,7 +361,15 @@ export async function scanGodotProject(selectedPath: string, options: ScannerOpt
       scanWasLimited = true;
       continue;
     }
-    collectMissingReferences(canonicalRoot, candidate.relativePath, text, allRelativeFiles, missingReferences);
+    if (collectMissingReferences(
+      canonicalRoot,
+      candidate.relativePath,
+      text,
+      projectSourceFiles,
+      missingReferences,
+      missingReferenceKeys,
+      limits.maximumMissingReferences,
+    )) missingReferencesTruncated = true;
     if (candidate.relativePath.toLowerCase().endsWith(".gd")) {
       for (const capability of ACTIVE_GDSCRIPT_PATTERNS) {
         if (capability.pattern.test(text)) {
@@ -302,8 +380,12 @@ export async function scanGodotProject(selectedPath: string, options: ScannerOpt
   }
 
   const mainSceneRaw = assignmentValue(projectConfig, "application", "run/main_scene");
-  const configuredMainScene = mainSceneRaw ? normalizeResourcePath(extractFirstQuoted(mainSceneRaw) ?? mainSceneRaw) : null;
-  const configuredMainSceneExists = configuredMainScene ? allRelativeFiles.has(configuredMainScene.toLowerCase()) : null;
+  const mainScene = parseMainSceneReference(mainSceneRaw);
+  const configuredMainScene = mainScene.value;
+  const configuredMainSceneKind = mainScene.kind;
+  const configuredMainSceneExists = configuredMainSceneKind === "path" && configuredMainScene
+    ? projectSourceFiles.has(configuredMainScene.toLowerCase())
+    : null;
   const configuredName = assignmentValue(projectConfig, "application", "config/name");
   const projectName = configuredName ? extractFirstQuoted(configuredName) ?? basename(canonicalRoot) : basename(canonicalRoot);
 
@@ -311,7 +393,7 @@ export async function scanGodotProject(selectedPath: string, options: ScannerOpt
     const rawPath = extractFirstQuoted(assignment.rawValue) ?? assignment.rawValue.trim();
     const singleton = rawPath.startsWith("*");
     const path = normalizeResourcePath(singleton ? rawPath.slice(1) : rawPath);
-    return { name: assignment.key, path, singleton, exists: allRelativeFiles.has(path.toLowerCase()) };
+    return { name: assignment.key, path, singleton, exists: projectSourceFiles.has(path.toLowerCase()) };
   });
   const inputActions = assignmentsForSection(projectConfig, "input").map((assignment) => assignment.key).sort();
   const displaySettings = selectedSettings(projectConfig, "display", DISPLAY_KEYS);
@@ -320,35 +402,45 @@ export async function scanGodotProject(selectedPath: string, options: ScannerOpt
   const enabledPlugins = extractAllQuoted(enabledPluginsRaw).map(normalizeResourcePath).sort();
 
   addTruth(projectGodotExists ? "confirmed" : "warning", projectGodotExists ? "project.godot found" : "project.godot not found", projectGodotExists ? "The selected root contains a regular project.godot file." : "The selected root does not contain a readable regular project.godot file.", "project.godot");
-  addTruth("confirmed", "Read-only file inventory completed", `${visitedFiles.toLocaleString()} regular files and ${visitedDirectories.toLocaleString()} directories were observed without executing project code.`);
-  if (configuredMainScene) {
-    addTruth(configuredMainSceneExists ? "confirmed" : "warning", configuredMainSceneExists ? "Configured main scene found" : "Configured main scene is missing", configuredMainSceneExists ? `${configuredMainScene} exists in the observed file inventory.` : `project.godot points to ${configuredMainScene}, but that path was not found.`, configuredMainScene);
+  addTruth("confirmed", "Read-only inventory completed", `${visitedFiles.toLocaleString()} regular files were observed: ${origins["project-source"].files.toLocaleString()} project-source, ${origins.tooling.files.toLocaleString()} tooling, ${origins["generated-output"].files.toLocaleString()} generated/output, and ${origins["ignored-by-godot"].files.toLocaleString()} ignored by Godot.`);
+  if (configuredMainSceneKind === "path" && configuredMainScene) {
+    addTruth(configuredMainSceneExists ? "confirmed" : "warning", configuredMainSceneExists ? "Configured main scene found" : "Configured main scene is missing", configuredMainSceneExists ? `${configuredMainScene} exists in the project-source inventory.` : `project.godot points to ${configuredMainScene}, but that path was not found in project source.`, configuredMainScene);
+  } else if (configuredMainSceneKind === "uid" && configuredMainScene) {
+    addTruth("limitation", "Configured main scene uses a UID", `${configuredMainScene} is preserved as configured, but Milestone 1 does not resolve Godot UID mappings. It is not reported as a missing path.`, configuredMainScene);
+  } else if (configuredMainSceneKind === "unknown" && configuredMainScene) {
+    addTruth("warning", "Configured main scene value is unsupported", `The scanner preserved ${configuredMainScene}, but cannot interpret it as a res:// path or uid:// reference.`, configuredMainScene);
   } else {
     addTruth("warning", "No configured main scene found", "The scanner did not find application/run/main_scene in the supported project.godot assignments.");
   }
+  if (origins.tooling.files > 0) addTruth("confirmed", "Tooling content separated", `${origins.tooling.files.toLocaleString()} file(s) were classified as tooling rather than project source.`);
+  if (origins["generated-output"].files > 0) addTruth("confirmed", "Generated/output content separated", `${origins["generated-output"].files.toLocaleString()} file(s) were kept in the observed totals but excluded from source-level inventory and capability counts.`);
+  if (origins["ignored-by-godot"].files > 0) addTruth("confirmed", "Godot-ignored content separated", `${origins["ignored-by-godot"].files.toLocaleString()} file(s) beneath .gdignore boundaries were kept in observed totals but excluded from project source.`);
   if (projectConfig.diagnostics.length > 0) addTruth("warning", "project.godot could not be parsed completely", `${projectConfig.diagnostics.length} malformed or unsupported assignment line(s) were encountered.`, "project.godot");
   if (enabledPlugins.length > 0) addTruth("warning", "Enabled editor plugin detected", `${enabledPlugins.length} plugin path(s) are enabled in project.godot. Plugin code can execute in the Godot editor.`);
+  if (pluginDeclarations.total > 0) addTruth("confirmed", "Editor plugin declarations observed", `${pluginDeclarations.total} plugin.cfg declaration(s) exist in project source. A declaration alone does not establish that a plugin is enabled.`);
   if (gdExtensions.total > 0) addTruth("warning", "GDExtension declaration detected", `${gdExtensions.total} .gdextension declaration(s) were observed. Native code may be loaded by the project.`);
   if (nativeLibraries.total > 0) addTruth("warning", "Native library content detected", `${nativeLibraries.total} native-library file(s) were observed.`);
   if (executables.total > 0) addTruth("warning", "Executable content detected", `${executables.total} executable or command file(s) were observed.`);
   if (activeContent.length > 0) addTruth("warning", "Active project capabilities detected", `${activeContent.length} editor, process, network, or command capability marker(s) were observed in supported text files.`);
-  if (missingReferences.length > 0) addTruth("warning", "Local resource references appear to be missing", `${missingReferences.length} directly quoted res:// reference(s) did not match the observed inventory.`);
+  if (missingReferences.length > 0) addTruth("warning", "Confirmed missing local file dependencies", `${missingReferences.length}${missingReferencesTruncated ? "+" : ""} concrete dependency path(s) from supported structured fields or static load/preload calls were absent from project source.`);
   if (unreadableFiles.length > 0) addTruth("warning", "Files or directories could not be read", `${unreadableFiles.length} path(s) could not be fully inspected.`);
   if (largeFiles.total > 0) addTruth("warning", "Large files detected", `${largeFiles.total} file(s) are at least ${formatBytes(limits.largeFileBytes)}.`);
   if (unsupportedFiles.total > 0) addTruth("warning", "Unsupported file types detected", `${unsupportedFiles.total} file(s) use extensions the scanner does not interpret.`);
-  if (reparsePoints.length > 0) addTruth("warning", "Reparse points detected and not followed", `${reparsePoints.length} symbolic link or junction path(s) were observed and skipped.`);
+  if (reparsePoints.length > 0) addTruth("warning", "Symlinks or junctions detected and not followed", `${reparsePoints.length} path(s) reported by the runtime as symbolic links, including tested Windows junctions, were observed and skipped.`);
   if (autoloads.some((autoload) => !autoload.exists)) addTruth("warning", "Autoload target appears to be missing", "At least one configured autoload path was not present in the observed inventory.");
 
-  addTruth("limitation", "Dynamic loading may be invisible", "Resources assembled from strings or loaded only at runtime may not appear in the reference check.");
+  addTruth("limitation", "Dynamic and nondependency paths are not missing-file findings", "Formatted templates, directory literals, output targets, arbitrary quoted res:// strings, and resources assembled at runtime are not treated as confirmed missing dependencies.");
   addTruth("limitation", "Runtime relationships are not observed", "The scanner does not instantiate scenes, execute scripts, or observe runtime-created nodes and resources.");
   addTruth("limitation", "The project was not run", "This scan cannot prove that the project imports, starts, builds, or behaves correctly.");
   addTruth("limitation", "Gameplay quality is outside this scan", "The scanner cannot determine fun, feel, pacing, balance, performance, or visual quality.");
-  addTruth("limitation", "Generated metadata is intentionally skipped", `${skippedGeneratedDirectories} .git, .godot, or .import director${skippedGeneratedDirectories === 1 ? "y was" : "ies were"} not traversed.`);
-  if (Object.values(groups).some((collection) => collection.truncated) || gdExtensions.truncated || nativeLibraries.truncated || executables.truncated || largeFiles.truncated || unsupportedFiles.truncated) {
-    addTruth("limitation", "Some displayed lists are truncated", `Each category displays at most ${limits.maximumReportedItemsPerGroup} paths, while category totals remain exact within the scan limits.`);
+  addTruth("limitation", "Generated metadata is intentionally skipped", `${skippedGeneratedDirectories} .git, .godot, or .import director${skippedGeneratedDirectories === 1 ? "y was" : "ies were"} not traversed; the exact skipped descendant totals are not claimed.`);
+  if (Object.values(groups).some((collection) => collection.truncated) || pluginDeclarations.truncated || gdExtensions.truncated || nativeLibraries.truncated || executables.truncated || largeFiles.truncated || unsupportedFiles.truncated) {
+    addTruth("limitation", "Some displayed lists are truncated", `Each category displays at most ${limits.maximumReportedItemsPerGroup} paths. Totals remain exact within scan limits, but UI filtering searches only the displayed subset.`);
   }
 
-  sortReportCollections(groups, gdExtensions, nativeLibraries, executables, largeFiles, unsupportedFiles);
+  sortReportCollections(groups, pluginDeclarations, gdExtensions, nativeLibraries, executables, largeFiles, unsupportedFiles);
+  classifiedRoots.sort((left, right) => left.path.localeCompare(right.path, "en"));
+  excludedRoots.sort((left, right) => left.path.localeCompare(right.path, "en"));
   activeContent.sort((left, right) => left.path.localeCompare(right.path, "en") || left.capability.localeCompare(right.capability, "en"));
   missingReferences.sort((left, right) => left.sourcePath.localeCompare(right.sourcePath, "en") || left.referencedPath.localeCompare(right.referencedPath, "en"));
   unreadableFiles.sort();
@@ -356,7 +448,7 @@ export async function scanGodotProject(selectedPath: string, options: ScannerOpt
 
   const completed = Date.now();
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     projectRoot: canonicalRoot,
     projectName,
     status: scanWasLimited || !projectGodotReadable || projectConfig.diagnostics.length > 0 ? "partial" : "complete",
@@ -371,19 +463,25 @@ export async function scanGodotProject(selectedPath: string, options: ScannerOpt
       diagnostics,
     },
     configuredMainScene,
+    configuredMainSceneKind,
     configuredMainSceneExists,
     totals: { files: visitedFiles, directories: visitedDirectories, bytes: totalBytes, skippedGeneratedDirectories },
+    origins,
+    classifiedRoots,
+    excludedRoots,
     groups,
     autoloads,
     inputActions,
     displaySettings,
     renderingSettings,
     enabledPlugins,
+    pluginDeclarations,
     gdExtensions,
     nativeLibraries,
     executables,
     activeContent,
     missingReferences,
+    missingReferencesTruncated,
     unreadableFiles,
     largeFiles,
     unsupportedFiles,
@@ -476,20 +574,112 @@ function groupForExtension(extension: string): FileGroupKey | null {
   return null;
 }
 
-function collectMissingReferences(root: string, sourcePath: string, text: string, allFiles: Set<string>, output: MissingReference[]): void {
-  const references = new Set<string>();
-  for (const match of text.matchAll(/["'](res:\/\/[^"']+)["']/gu)) {
-    const raw = match[1];
-    if (!raw) continue;
-    const path = normalizeResourcePath(raw.split("::", 1)[0] ?? raw);
-    if (!path || path.includes("*") || path.includes("?")) continue;
-    const absolute = resolve(root, ...path.split("/"));
-    if (!isInsideRoot(root, absolute)) continue;
-    references.add(path);
+function collectMissingReferences(
+  root: string,
+  sourcePath: string,
+  text: string,
+  projectSourceFiles: Set<string>,
+  output: MissingReference[],
+  reportedKeys: Set<string>,
+  maximum: number,
+): boolean {
+  const extension = extname(sourcePath).toLowerCase();
+  const candidates: Array<{ raw: string; evidence: MissingReference["evidence"] }> = [];
+  if (extension === ".gd") {
+    for (const match of text.matchAll(/\b(?:preload|load)\s*\(\s*["'](res:\/\/[^"']+)["']\s*\)/gu)) {
+      if (match[1]) candidates.push({ raw: match[1], evidence: "static-load" });
+    }
+  } else if (extension === ".tscn" || extension === ".tres") {
+    for (const match of text.matchAll(/\[ext_resource\b[^\]]*\bpath\s*=\s*["'](res:\/\/[^"']+)["'][^\]]*\]/gu)) {
+      if (match[1]) candidates.push({ raw: match[1], evidence: "structured-resource" });
+    }
+  } else if (extension === ".godot" && sourcePath.toLowerCase() === "project.godot") {
+    const config = parseGodotConfig(text);
+    for (const assignment of config.assignments) {
+      if (assignment.section === "autoload"
+        || (assignment.section === "application" && new Set(["run/main_scene", "config/icon", "boot_splash/image", "config/macos_native_icon"]).has(assignment.key))
+        || (assignment.section === "display" && assignment.key === "mouse_cursor/custom_image")
+        || (assignment.section === "editor_plugins" && assignment.key === "enabled")) {
+        for (const value of extractAllQuoted(assignment.rawValue)) {
+          const resourceValue = value.replace(/^\*+/u, "");
+          if (resourceValue.startsWith("res://")) candidates.push({ raw: resourceValue, evidence: "structured-resource" });
+        }
+      }
+    }
+  } else if (extension === ".cfg" && basename(sourcePath).toLowerCase() === "plugin.cfg") {
+    const config = parseGodotConfig(text);
+    for (const assignment of config.assignments) {
+      if (assignment.section === "plugin" && assignment.key === "script") {
+        const value = extractFirstQuoted(assignment.rawValue);
+        if (value?.startsWith("res://")) candidates.push({ raw: value, evidence: "structured-resource" });
+      }
+    }
+  } else if (extension === ".gdextension" || extension === ".gdnlib") {
+    for (const match of text.matchAll(/=\s*["'](res:\/\/[^"']+)["']/gu)) {
+      if (match[1]) candidates.push({ raw: match[1], evidence: "structured-resource" });
+    }
   }
-  for (const referencedPath of references) {
-    if (!allFiles.has(referencedPath.toLowerCase()) && output.length < 1_000) output.push({ sourcePath, referencedPath });
+
+  let truncated = false;
+  for (const candidate of candidates) {
+    const referencedPath = concreteResourceFilePath(candidate.raw);
+    if (!referencedPath) continue;
+    const absolute = resolve(root, ...referencedPath.split("/"));
+    if (!isInsideRoot(root, absolute) || projectSourceFiles.has(referencedPath.toLowerCase())) continue;
+    const key = `${sourcePath.toLowerCase()}\u0000${referencedPath.toLowerCase()}\u0000${candidate.evidence}`;
+    if (reportedKeys.has(key)) continue;
+    reportedKeys.add(key);
+    if (output.length >= maximum) {
+      truncated = true;
+      continue;
+    }
+    output.push({ sourcePath, referencedPath, evidence: candidate.evidence });
   }
+  return truncated;
+}
+
+function concreteResourceFilePath(raw: string): string | null {
+  const withoutSubresource = raw.split("::", 1)[0] ?? raw;
+  if (/%(?:\d+)?[A-Za-z]|[{}*?]/u.test(withoutSubresource)) return null;
+  const path = normalizeResourcePath(withoutSubresource);
+  if (!path || !extname(path)) return null;
+  return path;
+}
+
+function parseMainSceneReference(rawValue: string | null): { value: string | null; kind: MainSceneReferenceKind | null } {
+  if (!rawValue) return { value: null, kind: null };
+  const value = (extractFirstQuoted(rawValue) ?? rawValue.trim()).trim();
+  if (value.startsWith("res://")) return { value: normalizeResourcePath(value), kind: "path" };
+  if (value.startsWith("uid://")) return { value, kind: "uid" };
+  return { value: value || null, kind: value ? "unknown" : null };
+}
+
+function makeOriginTotals(): Record<ContentOrigin, OriginTotals> {
+  return {
+    "project-source": { files: 0, directories: 0, bytes: 0 },
+    tooling: { files: 0, directories: 0, bytes: 0 },
+    "generated-output": { files: 0, directories: 0, bytes: 0 },
+    "ignored-by-godot": { files: 0, directories: 0, bytes: 0 },
+    unknown: { files: 0, directories: 0, bytes: 0 },
+  };
+}
+
+async function hasRegularNoFollowFile(path: string): Promise<boolean> {
+  try {
+    const identity = await lstat(path);
+    return identity.isFile() && !identity.isSymbolicLink();
+  } catch {
+    return false;
+  }
+}
+
+async function isConfirmedAndroidToolingRoot(root: string): Promise<boolean> {
+  const androidRoot = join(root, "android");
+  const buildRoot = join(androidRoot, "build");
+  return await hasRegularNoFollowFile(join(androidRoot, ".build_version"))
+    && await hasRegularNoFollowFile(join(buildRoot, ".gdignore"))
+    && await hasRegularNoFollowFile(join(buildRoot, "build.gradle"))
+    && await hasRegularNoFollowFile(join(buildRoot, "gradlew"));
 }
 
 function assignmentValue(config: ParsedGodotConfig, section: string, key: string): string | null {

@@ -24,7 +24,9 @@ import {
 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import type { JSX } from "react";
+import { NOTE_LIMITS } from "../shared/contracts";
 import type {
+  ContentOrigin,
   FileCollection,
   FileGroupKey,
   ProjectScanReport,
@@ -62,6 +64,14 @@ const TRUTH_META: Record<TruthKind, { label: string; icon: LucideIcon; descripti
   limitation: { label: "Limitation", icon: CircleHelp, description: "Something this read-only scan cannot establish." },
 };
 
+const ORIGIN_LABELS: Record<ContentOrigin, string> = {
+  "project-source": "Project source",
+  tooling: "Tooling",
+  "generated-output": "Generated/output",
+  "ignored-by-godot": "Ignored by Godot",
+  unknown: "Unknown",
+};
+
 export function App(): JSX.Element {
   const [area, setArea] = useState<Area>("studio");
   const [snapshot, setSnapshot] = useState<StudioSnapshot | null>(null);
@@ -72,12 +82,14 @@ export function App(): JSX.Element {
   const [brief, setBrief] = useState("");
   const [objective, setObjective] = useState("");
   const workspaceRef = useRef<HTMLElement>(null);
+  const chooseProjectButtonRef = useRef<HTMLButtonElement>(null);
+  const trustReturnFocusRef = useRef<HTMLElement | null>(null);
 
   useEffect(() => {
     void window.studio.getSnapshot().then((result) => {
       if (result.ok) {
         applySnapshot(result.value);
-        if (result.value.selectedProject && !result.value.selectedProject.trusted) setTrustDialogOpen(true);
+        if (result.value.selectedProject && !result.value.selectedProject.trusted) openTrustDialog(chooseProjectButtonRef.current);
       } else setError(result.error.message);
       setLoading(false);
     });
@@ -90,13 +102,14 @@ export function App(): JSX.Element {
   }
 
   async function chooseProject(): Promise<void> {
+    const invokingElement = document.activeElement instanceof HTMLElement ? document.activeElement : chooseProjectButtonRef.current;
     setBusy("Opening folder picker…");
     setError(null);
     const result = await window.studio.chooseProject();
     if (!result.ok) setError(result.error.message);
     else if (result.value) {
       applySnapshot(result.value);
-      setTrustDialogOpen(Boolean(result.value.selectedProject && !result.value.selectedProject.trusted));
+      if (result.value.selectedProject && !result.value.selectedProject.trusted) openTrustDialog(invokingElement);
       setArea("studio");
     }
     setBusy(null);
@@ -106,7 +119,7 @@ export function App(): JSX.Element {
     setBusy("Scanning trusted project…");
     setError(null);
     const pending = window.studio.trustSelectedProject();
-    setTrustDialogOpen(false);
+    closeTrustDialog();
     const result = await pending;
     if (result.ok) applySnapshot(result.value);
     else setError(result.error.message);
@@ -118,7 +131,7 @@ export function App(): JSX.Element {
     const result = await window.studio.removeSelectedProjectTrust();
     if (result.ok) {
       applySnapshot(result.value);
-      setTrustDialogOpen(false);
+      closeTrustDialog(false);
     } else setError(result.error.message);
     setBusy(null);
   }
@@ -154,6 +167,18 @@ export function App(): JSX.Element {
     requestAnimationFrame(() => workspaceRef.current?.scrollTo({ top: 0, behavior: "auto" }));
   }
 
+  function openTrustDialog(invoker?: HTMLElement | null): void {
+    trustReturnFocusRef.current = invoker ?? (document.activeElement instanceof HTMLElement ? document.activeElement : chooseProjectButtonRef.current);
+    setTrustDialogOpen(true);
+  }
+
+  function closeTrustDialog(restoreFocus = true): void {
+    setTrustDialogOpen(false);
+    if (!restoreFocus) return;
+    const target = trustReturnFocusRef.current ?? chooseProjectButtonRef.current;
+    requestAnimationFrame(() => target?.focus());
+  }
+
   return (
     <div className="app-shell">
       <aside className="sidebar" aria-label="Primary navigation">
@@ -187,7 +212,7 @@ export function App(): JSX.Element {
                 <RefreshCw size={17} aria-hidden="true" /> Rescan
               </button>
             )}
-            <button className="button primary" onClick={() => void chooseProject()} disabled={Boolean(busy)} data-testid="choose-project-button">
+            <button ref={chooseProjectButtonRef} className="button primary" onClick={() => void chooseProject()} disabled={Boolean(busy)} data-testid="choose-project-button">
               <FolderOpen size={17} aria-hidden="true" /> Choose project
             </button>
           </div>
@@ -199,7 +224,7 @@ export function App(): JSX.Element {
         <section ref={workspaceRef} className="workspace" aria-busy={Boolean(busy)}>
           {loading ? <LoadingState /> : !project ? <WelcomeState onChoose={() => void chooseProject()} /> : (
             <>
-              {!project.trusted && <UntrustedBanner onReview={() => setTrustDialogOpen(true)} />}
+              {!project.trusted && <UntrustedBanner onReview={() => openTrustDialog()} />}
               {area === "studio" && <StudioArea snapshot={snapshot!} brief={brief} objective={objective} onBrief={setBrief} onObjective={setObjective} onSave={() => void saveNotes()} onRemoveTrust={() => void removeTrust()} busy={Boolean(busy)} />}
               {area === "project" && <ProjectArea project={project} />}
               {area === "builds" && <BuildsArea />}
@@ -208,7 +233,7 @@ export function App(): JSX.Element {
         </section>
       </main>
 
-      {trustDialogOpen && project && <TrustDialog projectName={project.name} projectPath={project.path} onTrust={() => void trustProject()} onCancel={() => setTrustDialogOpen(false)} />}
+      {trustDialogOpen && project && <TrustDialog projectName={project.name} projectPath={project.path} onTrust={() => void trustProject()} onCancel={() => closeTrustDialog()} />}
     </div>
   );
 }
@@ -232,15 +257,15 @@ function StudioArea({ snapshot, brief, objective, onBrief, onObjective, onSave, 
       <PageHeading eyebrow="Studio" title="Understand the project before changing it" description="A concise owner view built only from application data and conservative, read-only file inspection." />
       <div className="metric-grid">
         <MetricCard label="Trust state" value={project.trusted ? "Trusted by owner" : "Not trusted"} detail={project.trustedAt ? `Recorded ${formatDate(project.trustedAt)}` : "Scanning is paused"} tone={project.trusted ? "good" : "warn"} />
-        <MetricCard label="Scan state" value={formatStatus(project.scanState)} detail={scan ? `${scan.totals.files.toLocaleString()} files observed` : "No scan report yet"} />
+        <MetricCard label="Inventory state" value={formatStatus(project.scanState)} detail={scan ? `${scan.origins["project-source"].files.toLocaleString()} project-source · ${scan.totals.files.toLocaleString()} observed` : "No inventory report yet"} />
         <MetricCard label="Findings" value={`${warningCount} warnings`} detail={`${confirmedCount} confirmed facts`} tone={warningCount > 0 ? "warn" : "good"} />
         <MetricCard label="Latest build" value="No builds recorded" detail="Milestone 1 never infers or creates builds" />
       </div>
       <div className="studio-grid">
         <section className="panel notes-panel">
           <div className="panel-heading"><div><span className="eyebrow">Owner memory</span><h2>Game brief and current objective</h2></div><span className="storage-pill">Stored outside project</span></div>
-          <label className="field"><span>Game brief</span><textarea value={brief} onChange={(event) => onBrief(event.target.value)} placeholder="Describe the player promise, core loop and intended experience." rows={6} /></label>
-          <label className="field"><span>Current objective</span><textarea value={objective} onChange={(event) => onObjective(event.target.value)} placeholder="State the next bounded outcome you want to pursue." rows={4} /></label>
+          <label className="field"><span className="field-heading"><span>Game brief</span><small id="game-brief-count">{brief.length.toLocaleString()} / {NOTE_LIMITS.gameBrief.toLocaleString()} characters</small></span><textarea value={brief} maxLength={NOTE_LIMITS.gameBrief} aria-describedby="game-brief-count" onChange={(event) => onBrief(event.target.value)} placeholder="Describe the player promise, core loop and intended experience." rows={6} /></label>
+          <label className="field"><span className="field-heading"><span>Current objective</span><small id="current-objective-count">{objective.length.toLocaleString()} / {NOTE_LIMITS.currentObjective.toLocaleString()} characters</small></span><textarea value={objective} maxLength={NOTE_LIMITS.currentObjective} aria-describedby="current-objective-count" onChange={(event) => onObjective(event.target.value)} placeholder="State the next bounded outcome you want to pursue." rows={4} /></label>
           <div className="form-actions"><button className="button primary" onClick={onSave} disabled={busy || !project.trusted} data-testid="save-notes-button"><Save size={17} /> Save owner notes</button>{!project.trusted && <span>Trust the project before saving notes.</span>}</div>
         </section>
         <aside className="panel status-panel">
@@ -249,7 +274,7 @@ function StudioArea({ snapshot, brief, objective, onBrief, onObjective, onSave, 
             <Boundary icon={CheckCircle2} title="It can establish" text="Files, configured paths, selected settings, enabled plugins and directly visible capability markers." />
             <Boundary icon={CircleHelp} title="It cannot establish" text="Runtime behavior, dynamic relationships, successful imports, gameplay validity, performance or creative quality." />
           </div>
-          <div className="main-scene-card"><span>Configured main scene</span><strong>{scan?.configuredMainScene ?? "Not established"}</strong><small>{scan?.configuredMainSceneExists === true ? "Path found in inventory" : scan?.configuredMainSceneExists === false ? "Configured path appears missing" : "No supported setting was parsed"}</small></div>
+          <div className="main-scene-card"><span>Configured main scene</span><strong>{scan?.configuredMainScene ?? "Not established"}</strong><small>{mainSceneExplanation(scan)}</small></div>
           {project.trusted && <button className="button danger-quiet" onClick={onRemoveTrust} disabled={busy}><Trash2 size={17} /> Remove stored trust</button>}
         </aside>
       </div>
@@ -267,11 +292,13 @@ function ProjectArea({ project }: { project: NonNullable<StudioSnapshot["selecte
       <PageHeading eyebrow="Project" title="Observed project inventory" description="Paths and settings are reported as observed. Warnings and limitations stay separate from confirmed facts." />
       <TruthLegend />
       <div className="project-summary-grid">
-        <SummaryLine label="Configured main scene" value={scan.configuredMainScene ?? "Not configured in supported settings"} status={scan.configuredMainSceneExists === false ? "warning" : "confirmed"} />
+        <SummaryLine label="Configured main scene" value={scan.configuredMainScene ?? "Not configured in supported settings"} status={mainSceneStatus(scan)} />
         <SummaryLine label="Autoloads" value={`${scan.autoloads.length} configured`} status={scan.autoloads.some((item) => !item.exists) ? "warning" : "confirmed"} />
         <SummaryLine label="Input actions" value={`${scan.inputActions.length} directly parsed`} status="confirmed" />
-        <SummaryLine label="Scan coverage" value={`${scan.totals.files.toLocaleString()} files · ${formatBytes(scan.totals.bytes)}`} status={scan.status === "complete" ? "confirmed" : "warning"} />
+        <SummaryLine label="Inventory coverage" value={`${scan.origins["project-source"].files.toLocaleString()} source · ${scan.totals.files.toLocaleString()} observed`} status={scan.status === "complete" ? "confirmed" : "warning"} />
       </div>
+
+      <OriginPanel scan={scan} />
 
       <section className="panel finding-panel">
         <div className="panel-heading"><div><span className="eyebrow">Truth-labelled findings</span><h2>Facts, warnings and limits</h2></div><TruthCounts truth={scan.truth} /></div>
@@ -286,9 +313,10 @@ function ProjectArea({ project }: { project: NonNullable<StudioSnapshot["selecte
       </div>
 
       <section className="panel capability-panel">
-        <div className="panel-heading"><div><span className="eyebrow">Active capabilities</span><h2>Plugins, native content and executable markers</h2></div></div>
+        <div className="panel-heading"><div><span className="eyebrow">Declarations and active capabilities</span><h2>Source-level plugins, native content and executable markers</h2></div></div>
         <div className="capability-columns">
           <PathList title="Enabled editor plugins" paths={scan.enabledPlugins} empty="None directly configured" warning />
+          <PathList title="Plugin declarations" paths={scan.pluginDeclarations.items.map((item) => item.path)} empty="No plugin.cfg declarations observed" />
           <PathList title="GDExtension declarations" paths={scan.gdExtensions.items.map((item) => item.path)} empty="None observed" warning />
           <PathList title="Native libraries" paths={scan.nativeLibraries.items.map((item) => item.path)} empty="None observed" warning />
           <PathList title="Executables and commands" paths={scan.executables.items.map((item) => item.path)} empty="None observed" warning />
@@ -302,13 +330,31 @@ function ProjectArea({ project }: { project: NonNullable<StudioSnapshot["selecte
       </section>
 
       <div className="detail-grid issue-grid">
-        <PathList title="Missing local references" paths={scan.missingReferences.map((item) => `${item.sourcePath} → ${item.referencedPath}`)} empty="No directly quoted missing res:// references observed" warning />
+        <PathList title="Confirmed missing dependencies" paths={scan.missingReferences.map((item) => `${item.sourcePath} → ${item.referencedPath} (${item.evidence === "static-load" ? "static load/preload" : "structured resource field"})`)} empty="No missing dependencies were confirmed in supported fields or static load/preload calls" warning />
         <PathList title="Unreadable or malformed" paths={[...scan.unreadableFiles, ...scan.projectGodot.diagnostics]} empty="No read failures or supported-format diagnostics" warning />
         <PathList title="Large files" paths={scan.largeFiles.items.map((item) => `${item.path} · ${formatBytes(item.bytes)}`)} empty="No files above the configured threshold" warning />
         <PathList title="Unsupported files" paths={scan.unsupportedFiles.items.map((item) => item.path)} empty="No unsupported extensions observed" />
-        <PathList title="Reparse points" paths={scan.reparsePoints} empty="No symlinks or junctions observed" warning />
+        <PathList title="Symlinks and junctions" paths={scan.reparsePoints} empty="No runtime-reported symlinks or junctions observed" warning />
       </div>
     </div>
+  );
+}
+
+function OriginPanel({ scan }: { scan: ProjectScanReport }): JSX.Element {
+  const visibleOrigins: ContentOrigin[] = ["project-source", "tooling", "generated-output", "ignored-by-godot"];
+  return (
+    <section className="panel origin-panel">
+      <div className="panel-heading"><div><span className="eyebrow">Content origin</span><h2>Project source stays separate from generated output</h2><p>Source-level sections below exclude confirmed tooling, generated copies, and `.gdignore` trees while the observed totals remain visible.</p></div></div>
+      <div className="origin-grid">
+        {visibleOrigins.map((origin) => <article key={origin} className={`origin-card origin-${origin}`}><span>{ORIGIN_LABELS[origin]}</span><strong>{scan.origins[origin].files.toLocaleString()} files</strong><small>{scan.origins[origin].directories.toLocaleString()} directories · {formatBytes(scan.origins[origin].bytes)}</small></article>)}
+      </div>
+      {(scan.classifiedRoots.length > 0 || scan.excludedRoots.length > 0) && (
+        <div className="origin-root-list">
+          {scan.classifiedRoots.map((root) => <div key={`${root.origin}-${root.path}`}><span className={`origin-label origin-${root.origin}`}>{ORIGIN_LABELS[root.origin]}</span><code>{root.path}</code><small>{root.reason} {root.files.toLocaleString()} files classified.</small></div>)}
+          {scan.excludedRoots.map((root) => <div key={`excluded-${root.path}`}><span className={`origin-label origin-${root.origin}`}>{ORIGIN_LABELS[root.origin]}</span><code>{root.path}</code><small>{root.reason} Descendant totals were not inspected.</small></div>)}
+        </div>
+      )}
+    </section>
   );
 }
 
@@ -326,21 +372,40 @@ function BuildsArea(): JSX.Element {
 }
 
 function TrustDialog({ projectName, projectPath, onTrust, onCancel }: { projectName: string; projectPath: string; onTrust(): void; onCancel(): void }): JSX.Element {
-  const trustButton = useRef<HTMLButtonElement>(null);
+  const dialog = useRef<HTMLElement>(null);
+  const cancelButton = useRef<HTMLButtonElement>(null);
   useEffect(() => {
-    trustButton.current?.focus();
-    const listener = (event: KeyboardEvent) => { if (event.key === "Escape") onCancel(); };
-    window.addEventListener("keydown", listener);
-    return () => window.removeEventListener("keydown", listener);
+    cancelButton.current?.focus();
+    const listener = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        onCancel();
+        return;
+      }
+      if (event.key !== "Tab" || !dialog.current) return;
+      const focusable = [...dialog.current.querySelectorAll<HTMLElement>('button:not([disabled]), [href], input:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])')];
+      const first = focusable[0];
+      const last = focusable.at(-1);
+      if (!first || !last) return;
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener("keydown", listener);
+    return () => document.removeEventListener("keydown", listener);
   }, [onCancel]);
   return (
     <div className="modal-backdrop" role="presentation">
-      <section className="trust-dialog" role="alertdialog" aria-modal="true" aria-labelledby="trust-title" aria-describedby="trust-description" data-testid="trust-dialog">
+      <section ref={dialog} className="trust-dialog" role="alertdialog" aria-modal="true" aria-labelledby="trust-title" aria-describedby="trust-description" data-testid="trust-dialog">
         <div className="trust-icon"><ShieldCheck size={28} /></div><span className="eyebrow">First-open confirmation</span><h2 id="trust-title">Trust “{projectName}”?</h2>
         <p id="trust-description">Open only a project that you created or trust. This milestone scans project files but does not execute the game or modify the project.</p>
         <div className="dialog-path">{projectPath}</div>
         <div className="truth-note"><AlertTriangle size={17} /><span>Trusting the project does not mean every file is safe or valid. Capability warnings remain visible.</span></div>
-        <div className="dialog-actions"><button className="button secondary" onClick={onCancel} data-testid="cancel-trust-button">Cancel</button><button ref={trustButton} className="button primary" onClick={onTrust} data-testid="trust-project-button"><ShieldCheck size={17} /> Trust and scan</button></div>
+        <div className="dialog-actions"><button ref={cancelButton} className="button secondary" onClick={onCancel} data-testid="cancel-trust-button">Cancel</button><button className="button primary" onClick={onTrust} data-testid="trust-project-button"><ShieldCheck size={17} /> Trust and scan</button></div>
       </section>
     </div>
   );
@@ -358,7 +423,7 @@ function EmptyScanState({ state }: { state: string }): JSX.Element { return <div
 function PageHeading({ eyebrow, title, description }: { eyebrow: string; title: string; description: string }): JSX.Element { return <header className="page-heading"><span className="eyebrow">{eyebrow}</span><h1>{title}</h1><p>{description}</p></header>; }
 function MetricCard({ label, value, detail, tone = "neutral" }: { label: string; value: string; detail: string; tone?: "neutral" | "good" | "warn" }): JSX.Element { return <article className={`metric-card ${tone}`}><span>{label}</span><strong>{value}</strong><small>{detail}</small></article>; }
 function Boundary({ icon: Icon, title, text }: { icon: LucideIcon; title: string; text: string }): JSX.Element { return <div className="boundary"><Icon size={19} /><div><strong>{title}</strong><span>{text}</span></div></div>; }
-function SummaryLine({ label, value, status }: { label: string; value: string; status: "confirmed" | "warning" }): JSX.Element { const Icon = status === "confirmed" ? CheckCircle2 : AlertTriangle; return <div className={`summary-line ${status}`}><Icon size={18} /><span><small>{label}</small><strong>{value}</strong></span></div>; }
+function SummaryLine({ label, value, status }: { label: string; value: string; status: "confirmed" | "warning" | "limitation" }): JSX.Element { const Icon = status === "confirmed" ? CheckCircle2 : status === "warning" ? AlertTriangle : CircleHelp; return <div className={`summary-line ${status}`}><Icon size={18} /><span><small>{label}</small><strong>{value}</strong></span></div>; }
 
 function TruthLegend(): JSX.Element { return <section className="truth-legend" aria-label="Scanner truth categories">{(Object.keys(TRUTH_META) as TruthKind[]).map((kind) => { const meta = TRUTH_META[kind]; const Icon = meta.icon; return <div key={kind} className={`truth-legend-item ${kind}`}><Icon size={17} /><span><strong>{meta.label}</strong><small>{meta.description}</small></span></div>; })}</section>; }
 function TruthCounts({ truth }: { truth: TruthItem[] }): JSX.Element { return <div className="truth-counts">{(["confirmed", "warning", "heuristic", "limitation"] as TruthKind[]).map((kind) => <span key={kind} className={kind}>{truth.filter((item) => item.kind === kind).length} {TRUTH_META[kind].label.toLowerCase()}{truth.filter((item) => item.kind === kind).length === 1 ? "" : "s"}</span>)}</div>; }
@@ -371,9 +436,33 @@ function PathList({ title, paths, empty, warning = false }: { title: string; pat
 function FileGroupCard({ group, collection, query }: { group: FileGroupKey; collection: FileCollection; query: string }): JSX.Element {
   const meta = GROUP_LABELS[group]; const Icon = meta.icon; const normalized = query.trim().toLowerCase();
   const matches = normalized ? collection.items.filter((item) => item.path.toLowerCase().includes(normalized)) : collection.items;
-  return <article className="file-group-card"><div className="file-group-heading"><span><Icon size={18} /><strong>{meta.label}</strong></span><b>{collection.total}</b></div><div className="file-list">{matches.slice(0, 60).map((item) => <div key={item.path}><code title={item.path}>{item.path}</code><small>{formatBytes(item.bytes)}</small></div>)}{matches.length === 0 && <p>No matching observed paths.</p>}</div>{(collection.truncated || matches.length > 60) && <div className="truncation-note">Showing a bounded subset; the total remains exact.</div>}</article>;
+  const subsetNote = collection.truncated
+    ? `Filtering searches the ${collection.items.length.toLocaleString()} displayed paths, not all ${collection.total.toLocaleString()} source files in this category.`
+    : matches.length > 60 ? `Showing the first 60 of ${matches.length.toLocaleString()} matching displayed paths.` : null;
+  return <article className="file-group-card"><div className="file-group-heading"><span><Icon size={18} /><strong>{meta.label}</strong></span><b>{collection.total}</b></div><div className="file-list">{matches.slice(0, 60).map((item) => <div key={item.path}><code title={item.path}>{item.path}</code><small>{formatBytes(item.bytes)}</small></div>)}{matches.length === 0 && <p>No matching project-source paths.</p>}</div>{subsetNote && <div className="truncation-note">{subsetNote}</div>}</article>;
 }
 
 function formatBytes(bytes: number): string { if (bytes >= 1024 ** 3) return `${(bytes / 1024 ** 3).toFixed(1)} GiB`; if (bytes >= 1024 ** 2) return `${(bytes / 1024 ** 2).toFixed(1)} MiB`; if (bytes >= 1024) return `${(bytes / 1024).toFixed(1)} KiB`; return `${bytes} B`; }
-function formatStatus(value: string): string { return value.replaceAll("-", " ").replace(/^./u, (letter) => letter.toUpperCase()); }
+function formatStatus(value: string): string {
+  const labels: Record<string, string> = {
+    complete: "Inventory complete",
+    partial: "Inventory partial",
+    scanning: "Inventory scanning",
+    "not-scanned": "Not scanned",
+    cancelled: "Inventory cancelled",
+    failed: "Inventory failed",
+  };
+  return labels[value] ?? value.replaceAll("-", " ").replace(/^./u, (letter) => letter.toUpperCase());
+}
+function mainSceneStatus(scan: ProjectScanReport): "confirmed" | "warning" | "limitation" {
+  if (scan.configuredMainSceneKind === "uid") return "limitation";
+  if (scan.configuredMainSceneKind === "unknown" || scan.configuredMainSceneExists === false) return "warning";
+  return "confirmed";
+}
+function mainSceneExplanation(scan: ProjectScanReport | null | undefined): string {
+  if (!scan?.configuredMainScene) return "No supported setting was parsed";
+  if (scan.configuredMainSceneKind === "uid") return "UID configured; Milestone 1 does not resolve UID mappings";
+  if (scan.configuredMainSceneKind === "unknown") return "Configured value preserved but not interpreted";
+  return scan.configuredMainSceneExists ? "Path found in project source" : "Configured source path appears missing";
+}
 function formatDate(value: string): string { return new Intl.DateTimeFormat(undefined, { dateStyle: "medium", timeStyle: "short" }).format(new Date(value)); }

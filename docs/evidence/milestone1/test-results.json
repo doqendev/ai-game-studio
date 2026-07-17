@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "completedAt": "2026-07-17T10:09:37.884Z",
+  "schemaVersion": 2,
+  "completedAt": "2026-07-17T12:57:49.681Z",
   "environment": {
     "platform": "Windows",
     "node": "22.22.2",
@@ -16,17 +16,22 @@
     {
       "command": "npm test",
       "result": "passed",
-      "detail": "2 test files; 16 tests passed."
-    },
-    {
-      "command": "npm run build",
-      "result": "passed",
-      "detail": "Electron main/preload TypeScript and Vite renderer production builds completed."
+      "detail": "3 test files; 28 tests passed, including scanner origin/reference/UID/limit cases and 5 controller generation-race cases."
     },
     {
       "command": "npm run test:acceptance",
       "result": "passed",
-      "detail": "2 Electron acceptance flows passed in 6.9 seconds: controlled fixture and Bakery Sort."
+      "detail": "1 portable Electron flow passed using the controlled fixture and an OS-temporary app-data profile; no owner path is required."
+    },
+    {
+      "command": "npm run test:owner-evidence",
+      "result": "passed",
+      "detail": "2 explicit evidence flows passed with STUDIO_OWNER_PROJECT, STUDIO_OWNER_APP_DATA, and STUDIO_EVIDENCE_ROOT supplied: corrected controlled fixture and Bakery Sort."
+    },
+    {
+      "command": "npm run test:owner-evidence (variables unset)",
+      "result": "passed",
+      "detail": "2 tests were explicitly skipped, proving the owner-specific evidence command is not a false portable requirement."
     },
     {
       "command": "npm audit --audit-level=moderate",
@@ -35,15 +40,17 @@
     }
   ],
   "acceptanceAssertions": [
-    "The visible Choose project action selects a controlled project through the dialog boundary.",
-    "First-open trust can be cancelled, recorded, removed, and recorded again.",
-    "A trusted project can be rescanned from the visible control.",
-    "The renderer has no require or process global.",
-    "The preload exposes exactly seven purpose-specific methods.",
-    "Owner notes persist outside the selected project.",
-    "Studio, Project, and Builds are navigable.",
-    "The fixture and real project expose their configured main scene.",
+    "The portable suite selects and trusts only a controlled fixture through the visible Choose project flow.",
+    "Portable app data and Playwright output use temporary directories.",
+    "The trust modal receives focus, traps Tab and Shift+Tab, closes with Escape, and restores focus to the invoking control.",
+    "Owner notes expose and enforce their shared character limits.",
+    "Project source, tooling, generated output, and Godot-ignored content are visibly distinct.",
+    "Generated copies do not inflate source-level inventories or capability findings.",
+    "Only supported concrete dependency syntax produces confirmed missing-file warnings.",
+    "Only the current immutable scan generation may publish a terminal state.",
+    "UID-based main scenes remain unresolved limitations rather than missing-path warnings.",
+    "Studio, Project, and Builds remain the only primary areas.",
     "The Builds view reports No builds recorded.",
-    "Whole-tree integrity is unchanged across the final real-project trial."
+    "Whole-tree integrity is unchanged across the explicit Bakery Sort owner trial."
   ]
 }

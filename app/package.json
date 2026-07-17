@@ -13,6 +13,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:acceptance": "npm run build && playwright test",
+    "test:owner-evidence": "npm run build && playwright test --config=playwright.owner.config.ts",
     "scan": "tsx scripts/scan-project.ts",
     "integrity": "tsx scripts/project-integrity.ts"
   },
