@@ -1,0 +1,22 @@
+{
+  "name": "ai-game-studio-gate0",
+  "version": "0.0.0-gate0",
+  "private": true,
+  "description": "Disposable Gate 0 feasibility probes; not product implementation",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "check": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@openai/codex": "0.144.5"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.1",
+    "typescript": "7.0.2"
+  },
+  "engines": {
+    "node": "22.22.2"
+  }
+}
+

@@ -1,0 +1,7 @@
+# Preserve archival source bytes exactly across Windows checkouts.
+docs/archive/public-product-containment/** -text
+docs/decisions/source/** -text
+experiments/archive/gate0-public-containment/** -text
+
+# Sealed evidence is opaque binary content and must never be normalized.
+docs/evidence/gate0/archives/** binary

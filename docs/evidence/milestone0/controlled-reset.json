@@ -1,0 +1,69 @@
+{
+  "schemaVersion": 1,
+  "milestone": "Milestone 0 - Controlled Reset",
+  "capturedAtUtc": "2026-07-17T09:08:08.4144595Z",
+  "copyVerifiedAtUtc": "2026-07-17T09:10:34.4621487Z",
+  "preReset": {
+    "root": "E:/doqendev/AI Game Studio",
+    "validGitRepository": false,
+    "gitProbe": "fatal: not a git repository (or any of the parent directories): .git",
+    "emptyGitPlaceholders": [
+      {
+        "path": "E:/doqendev/AI Game Studio/.git",
+        "entryCount": 0,
+        "removed": true
+      },
+      {
+        "path": "E:/doqendev/AI Game Studio/gate0/.git",
+        "entryCount": 0,
+        "removed": true
+      }
+    ],
+    "otherEmptyToolPlaceholdersRemoved": [
+      "E:/doqendev/AI Game Studio/.agents",
+      "E:/doqendev/AI Game Studio/.codex",
+      "E:/doqendev/AI Game Studio/gate0/.agents"
+    ]
+  },
+  "bytePreservedDocuments": [
+    {
+      "repositoryPath": "docs/archive/public-product-containment/AI_Game_Studio_Critical_Technical_Response_and_Gate_0_Feasibility_Design.md",
+      "bytes": 82902,
+      "sha256": "9b3ee9923d3d22c874ce713fb0975e0eb8998835a2ffa698e8a4ec26435b85f5"
+    },
+    {
+      "sourcePath": "E:/downloads_new/AI_Game_Studio_Internal_Creator_Prototype_Reframing.md",
+      "repositoryPath": "docs/decisions/source/AI_Game_Studio_Internal_Creator_Prototype_Reframing.md",
+      "bytes": 24476,
+      "sha256": "77b048e2377150b321df7e50bd94c98cf4161140c19185d32fb0f13c7754bef0",
+      "sourceAndCopyMatch": true
+    }
+  ],
+  "archivedGate0": {
+    "repositoryPath": "experiments/archive/gate0-public-containment",
+    "authoredFileCount": 40,
+    "activeProductDependency": false
+  },
+  "excludedGeneratedMaterial": [
+    {
+      "originalPath": "gate0/node_modules",
+      "fileCount": 662,
+      "bytes": 442552950,
+      "reason": "installed dependencies"
+    },
+    {
+      "originalPath": "gate0/dist",
+      "fileCount": 39,
+      "bytes": 248516,
+      "reason": "compiled TypeScript output"
+    },
+    {
+      "originalPath": "gate0/build",
+      "fileCount": 1,
+      "bytes": 12288,
+      "reason": "compiled native helper binary"
+    }
+  ],
+  "productImplementationIncluded": false,
+  "milestone1Included": false
+}

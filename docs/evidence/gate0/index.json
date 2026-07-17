@@ -1,0 +1,56 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Content-addressed index of sealed Gate 0 evidence preserved during Milestone 0",
+  "verifiedAtUtc": "2026-07-17T09:10:34.4621487Z",
+  "copyPolicy": {
+    "mode": "byte-for-byte",
+    "originalsModified": false,
+    "archivesUnpackedOrResealed": false
+  },
+  "archives": [
+    {
+      "id": "gate0-stopped-at-gate0b",
+      "sourcePath": "C:/Users/Marcos/AppData/Local/AI Game Studio/Gate0/runs/20260716T211212Z-57b95e1a-gate0a/AI_Game_Studio_Gate0_20260716_STOPPED_AT_GATE0B.zip",
+      "repositoryPath": "docs/evidence/gate0/archives/AI_Game_Studio_Gate0_20260716_STOPPED_AT_GATE0B.zip",
+      "bytes": 1095225,
+      "sha256": "5c162e6afe33684e0469bd1a0e36058820bfaeac8d5b408826e68027cf206f90",
+      "sourceAndCopyMatch": true,
+      "packetManifest": {
+        "entries": 930,
+        "mismatches": 0
+      }
+    },
+    {
+      "id": "gate0b-loopback-terminal-failure",
+      "sourcePath": "C:/Users/Marcos/AppData/Local/AI Game Studio/Gate0/repeats/20260716T222009Z-b07dbbc8-b46d-4a06-b873-64ef7107d321-windows-sandbox-setup/AI_Game_Studio_Gate0B_LOOPBACK_FAILURE_20260716T224536Z.zip",
+      "repositoryPath": "docs/evidence/gate0/archives/AI_Game_Studio_Gate0B_LOOPBACK_FAILURE_20260716T224536Z.zip",
+      "bytes": 205675,
+      "sha256": "21e1c3be4880d9d94395dcd2a45419c127378e3b38022c178e55ad5e9acce258",
+      "sourceAndCopyMatch": true,
+      "packetManifest": {
+        "entries": 46,
+        "mismatches": 0
+      }
+    },
+    {
+      "id": "gate0b-loopback-pre-remediation",
+      "sourcePath": "C:/Users/Marcos/AppData/Local/AI Game Studio/Gate0/repeats/20260716T222009Z-b07dbbc8-b46d-4a06-b873-64ef7107d321-windows-sandbox-setup/Gate0B_Loopback_PreRemediation_20260716T223432Z.zip",
+      "repositoryPath": "docs/evidence/gate0/archives/Gate0B_Loopback_PreRemediation_20260716T223432Z.zip",
+      "bytes": 36225,
+      "sha256": "d625578d85e3c8ed55b2a75ef58c7b6a9179f04e77ce1def389bb7f5146f2356",
+      "sourceAndCopyMatch": true,
+      "packetManifest": {
+        "coveredByArchiveId": "gate0b-loopback-terminal-failure",
+        "coveredPath": "pre-remediation/Gate0B_Loopback_PreRemediation_20260716T223432Z.zip"
+      }
+    }
+  ],
+  "scopeConclusion": {
+    "gate0A": "passed pinned protocol, isolated authentication, and process supervision probes",
+    "gate0BSnapshotState": "passed",
+    "zeroNetwork": "failed and deferred for the trusted-owner phase; not passed",
+    "godotExecution": "not run",
+    "gate0C": "not run",
+    "builderToPlayable": "not run"
+  }
+}

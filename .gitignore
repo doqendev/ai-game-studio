@@ -1,0 +1,34 @@
+# Local agent/tool state
+.agents/
+.codex/
+
+# Node / Electron dependencies and outputs
+node_modules/
+dist/
+out/
+build/
+release/
+coverage/
+.vite/
+*.tsbuildinfo
+
+# Godot generated state and review outputs
+.godot/
+.import/
+exports/
+artifacts/
+*.pck
+*.exe
+
+# Environment, logs, and temporary files
+.env
+.env.*
+!.env.example
+*.log
+*.tmp
+*.temp
+
+# Operating-system noise
+.DS_Store
+Thumbs.db
+Desktop.ini
